@@ -1,5 +1,24 @@
 .header {
   background-color: #465DFF;
-  min-width: 1280px;
+  max-width: 1280px;
   height: 74px;
+  display: flex;
+  justify-content: space-between;
 }
+
+.header__logo {
+  background-image: url(../../images/logo.svg);
+  width: 38px;
+  height: 38px;
+}
+
+.header__nav {
+  visibility: visible;
+}
+
+.header__nav_disabled {
+  visibility: hidden;
+}
+
+
+
