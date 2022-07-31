@@ -1,26 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
+import { Switch, Route, useHistory } from "react-router-dom";
+import ProtectedRoute from "../ProtectedRoute";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Switch> 
+        <Route exact path="/">
+          <Main />
+        </Route>
+        <ProtectedRoute path="/movies">
+          <Movies />
+        </ProtectedRoute>
+        <ProtectedRoute path="/saved-movies">
+          <SavedMovies />
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile">
+          <Profile />
+        </ProtectedRoute>
+        <Route path="/signin">
+          <Login />
+        </Route>
+        <Route exact path="/signup">
+          <Register />
+        </Route>
+      </Switch>
+      <Footer />
     </div>
   );
 }
 
 export default App;
+
