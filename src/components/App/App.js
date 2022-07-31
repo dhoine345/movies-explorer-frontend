@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import { useState, useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
 import Header from '../Header/Header';
@@ -12,9 +12,28 @@ import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(true);
+
+  /*useEffect(() => {
+    checkToken();
+  },[]);
+
+  const checkToken = () => {
+    let token = localStorage.getItem('jwt');
+    if(localStorage.getItem('jwt')) {
+      getContent(token)
+        .then(res => {
+          setEmail(res.data.email);
+          setLoggedIn(true);
+          history.push('/');
+        })
+        .catch(err => console.log(err.message));
+    }
+  }*/
+
   return (
-    <div className="App">
-      <Header />
+    <div className="page">
+      <Header loggedIn={loggedIn} />
       {/*<Switch>
         <Route exact path="/">
           <Main />
