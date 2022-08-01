@@ -12,7 +12,7 @@ import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   /*useEffect(() => {
     checkToken();
@@ -34,6 +34,7 @@ function App() {
   return (
     <div className="page">
       <Header loggedIn={loggedIn} />
+      <Main />
       {/*<Switch>
         <Route exact path="/">
           <Main />
