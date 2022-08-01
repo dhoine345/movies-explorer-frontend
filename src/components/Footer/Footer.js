@@ -2,7 +2,7 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <footer className="header">
+    <footer className="footer">
       <h1>Calorie-Zen</h1>
     </footer>
   );
