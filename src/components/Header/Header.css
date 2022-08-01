@@ -4,11 +4,27 @@
   height: 74px;
   display: flex;
   justify-content: space-between;
-  padding: 0 70px 0 70px;
+  padding: 18px 70px 0 70px;
 }
 
 .header_white-back {
   background-color: #FFFFFF;
+}
+
+.header__reg-or-log {
+  background-color: #FFFFFF;
+  height: 217px;
+  display: flex;
+  flex-direction: column;
+  padding: 70px 0 0 calc(100% - 65.5%);
+  box-sizing: border-box;
+}
+
+.header__title {
+  margin: 42px 0 0 0;
+  font-weight: 500;
+  font-size: 1.5em;
+  line-height: 1.21;
 }
 
 .header_login {
@@ -19,7 +35,6 @@
   background-image: url(../../images/logo.svg);
   width: 38px;
   height: 38px;
-  padding-top: 18px;
   background-position: bottom;
   background-repeat: no-repeat;
 }
@@ -49,7 +64,7 @@
 }
 
 .header__navlink_active {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .header__navlink:last-child {
@@ -107,6 +122,10 @@
   .header {
     padding: 0 20px;
   }
+  .header__reg-or-log {
+    height: 379px;
+    padding: 232px 0 0 calc(100% - 75.78%);
+  }
   .header__nav {
     display: none;
   }
@@ -121,6 +140,14 @@
 @media screen and (max-width:320px) {
   .header {
     padding: 0 14px;
+  }
+  .header__reg-or-log {
+    height: 253px;
+    padding: 56px 0 0 0;
+    margin: 0 auto;
+  }
+  .header__logo {
+    align-self: center;
   }
   .header__link{
     font-size: 0.625em;

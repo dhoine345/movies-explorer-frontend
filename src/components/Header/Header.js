@@ -1,5 +1,6 @@
 import './Header.css';
 import { Link, NavLink, useHistory } from 'react-router-dom';
+import { useState, useEffect } from "react";
 
 function Header({ loggedIn }) {
   function handleMouseEnter(e) {
@@ -9,16 +10,16 @@ function Header({ loggedIn }) {
       : e.target.previousElementSibling.classList.remove('header__link_active')
   }
 
-  const pathLoginOrRegist = useHistory().location.pathname === '/login' || '/register';
+  const path = useHistory().location.pathname
 
   return (
-    <header className={`header ${loggedIn && 'header_white-back'}`}>
+    <header className={`${((path === '/login') || (path === '/register')) ? 'header__reg-or-log' : 'header'} ${loggedIn && 'header_white-back'}`}>
       <Link to='/' className='header__logo'/>
-      {pathLoginOrRegist && <h2 className='header__title'>Добро пожаловать!</h2>}
-      {loggedIn ?
+      {((path === '/login') || (path === '/register')) && <h2 className='header__title'>{path === '/register' ? 'Добро пожаловать!' : 'Рады видеть!'}</h2>}
+      {path === '/' ? (loggedIn ?
       <>
       <nav className='header__nav'>
-        <NavLink to='/movies' className='header__navlink' activeClassName='header__navlink_active' onMouseEnter={handleMouseEnter}>Фильмы</NavLink>
+        <NavLink to='/movies' className='header__navlink' activeClassName='header__navlink_active'>Фильмы</NavLink>
         <NavLink to='/saved-movies' className='header__navlink' activeClassName='header__navlink_active'>Сохраненные фильмы</NavLink>
       </nav>
       <Link to='/profile' className='header__account-container'>
@@ -31,7 +32,8 @@ function Header({ loggedIn }) {
       <nav className='header__auth'>
         <Link to='/signup' className='header__link' onMouseEnter={handleMouseEnter} >Регистрация</Link>
         <Link to='/signin' className='header__link header__link_active' onMouseEnter={handleMouseEnter} >Войти</Link>
-      </nav>
+      </nav>)
+      : ''
       }
     </header>
   );
