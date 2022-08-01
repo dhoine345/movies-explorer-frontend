@@ -4,21 +4,138 @@
   height: 74px;
   display: flex;
   justify-content: space-between;
+  padding: 0 70px 0 70px;
+}
+
+.header_white-back {
+  background-color: #FFFFFF;
+}
+
+.header_login {
+  background-color: #FFFFFF;
 }
 
 .header__logo {
   background-image: url(../../images/logo.svg);
   width: 38px;
   height: 38px;
+  padding-top: 18px;
+  background-position: bottom;
+  background-repeat: no-repeat;
 }
 
 .header__nav {
-  visibility: visible;
+  margin: 28px auto;
 }
 
-.header__nav_disabled {
+.header__account-container {
+  align-self: center;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  font-size: 0.875em;
+  line-height: 1.14;
+  display: flex;
+  width: 100px;
+  align-items: center;
+}
+
+.header__navlink {
+  text-decoration: none;
+  color: black;
+  font-weight: normal;
+  font-size: 1.23em;
+  line-height: 1.125;
+}
+
+.header__navlink_active {
+  font-weight: bold;
+}
+
+.header__navlink:last-child {
+  margin-left: 18px;;
+}
+
+.header__account-back {
+  background-color: #F9F9F9;
+  width: 26px;
+  height: 30px;
+  border-radius: 4px;
+  margin-left: 17px;
+}
+
+.header__account-svg {
+  background-image: url(../../images/icon__account.svg);
+  height: 14px;
+  margin: 8px 7.25px;
+}
+
+.header__auth {
+  align-self: center;
+}
+
+.header__link{
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 0.875em;
+  line-height: 1.14;
+  text-decoration: none;
+}
+
+.header__link:last-child {
+  margin-left: 30px;
+}
+
+.header__link_active {
+  background-color: #2BE080;
+  border-radius: 3px;
+  color: black;
+  padding: 10px 20px;
+}
+
+.header__hamburger-button {
+  width: 44px;
+  height: 44px;
   visibility: hidden;
+  background-image: url(../../images/icon__menu.svg);
+  border: none;
+  background-color: #FFFFFF;
+  align-self: center;
 }
 
+@media screen and (max-width:768px) {
+  .header {
+    padding: 0 20px;
+  }
+  .header__nav {
+    display: none;
+  }
+  .header__account-container {
+    display: none;
+  }
+  .header__hamburger-button {
+    visibility: visible;
+  }
+}
+
+@media screen and (max-width:320px) {
+  .header {
+    padding: 0 14px;
+  }
+  .header__link{
+    font-size: 0.625em;
+    line-height: 1.6;
+  }
+  .header__link_active {
+    padding: 7px 12px;
+  }
+  .header__link:last-child {
+    margin-left: 14px;
+  }
+  .header__hamburger-button {
+    width: 40px;
+    height: 43px;
+  }
+}
 
 
