@@ -1,6 +1,6 @@
 .promo {
   background-color: #465DFF;
-  padding: 54px calc(100% - 89.06%) 60px;
+  padding: 54px calc(100% - 94.53%) 60px;
   display: flex;
   flex-direction: column;
 }
@@ -26,7 +26,7 @@
 
 @media screen and (max-width:930px) {
   .promo {
-    padding: 300px calc(100% - 89.06%) 70px;
+    padding: 300px calc(100% - 94.53%) 70px;
   }
   .promo__logo {
     width: 680px;
