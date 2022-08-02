@@ -9,8 +9,8 @@ function Main() {
     <main className="main">
       <Promo />
       <AboutProject />
-      {/*<Techs />
-      <AboutMe />
+      <Techs />
+      {/*<AboutMe />
       <Portfolio />*/}
     </main>
   );
