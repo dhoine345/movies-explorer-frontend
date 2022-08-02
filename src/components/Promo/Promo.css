@@ -40,6 +40,17 @@
   }
 }
 
+@media screen and (max-width:768px) {
+  .promo__logo {
+    width: 117%;
+    height: 230px;
+  }
+  .promo__title {
+    width: 90%;
+    font-size: 5.5vw;
+  }
+}
+
 /*.promo {
   height: 560px;
   background-color: #465DFF;
