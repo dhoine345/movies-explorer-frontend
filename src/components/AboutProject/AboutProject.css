@@ -5,16 +5,6 @@
   flex-direction: column;
 }
 
-.project__title {
-  margin: 110px 0 0 0;
-  padding-bottom: 23px;
-  font-weight: normal;
-  font-size: 1.375em;
-  line-height: 1.21;
-  letter-spacing: -.04em;
-  border-bottom: 1px solid black;
-}
-
 .project__description {
   display: flex;
   justify-content: space-between;
