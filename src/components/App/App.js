@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, Routes } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -34,7 +34,11 @@ function App() {
   return (
     <div className="page">
       <Header loggedIn={loggedIn} />
-      <Main />
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/signin" element={<Login />} />
+      </Routes>
       {/*<Switch>
         <Route exact path="/">
           <Main />

@@ -1,5 +1,5 @@
 import './Header.css';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useState, useEffect } from "react";
 
 function Header({ loggedIn }) {
@@ -10,12 +10,12 @@ function Header({ loggedIn }) {
       : e.target.previousElementSibling.classList.remove('header__link_active')
   }
 
-  const path = useHistory().location.pathname
+  const path = useLocation().pathname;
 
   return (
-    <header className={`${((path === '/login') || (path === '/register')) ? 'header__reg-or-log' : 'header'} ${loggedIn && 'header_white-back'}`}>
+    <header className={`${((path === '/signin') || (path === '/signup')) ? 'header__reg-or-log' : 'header'} ${loggedIn && 'header_white-back'}`}>
       <Link to='/' className='header__logo'/>
-      {((path === '/login') || (path === '/register')) && <h2 className='header__title'>{path === '/register' ? 'Добро пожаловать!' : 'Рады видеть!'}</h2>}
+      {((path === '/signin') || (path === '/signup')) && <h2 className='header__title'>{path === '/register' ? 'Добро пожаловать!' : 'Рады видеть!'}</h2>}
       {path === '/' ? (loggedIn ?
       <>
       <nav className='header__nav'>
