@@ -24,14 +24,14 @@
   text-align: center;
 }
 
-.techs__table {
+.techs__list {
   display: flex;
   list-style: none;
   align-self: center;
   margin: 0;
 }
 
-.techs__table-cell {
+.techs__list-item {
   margin-right: 10px;
   width: 90px;
   height: 60px;
