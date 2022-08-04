@@ -3,10 +3,6 @@
   padding: 79px calc(100% - 94.53%) 20px;
 }
 
-.footer__none {
-  display: none;
-}
-
 .footer__title {
   margin: 0 0 20px;
   color: #A0A0A0;
