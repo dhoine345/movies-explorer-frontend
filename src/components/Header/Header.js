@@ -15,7 +15,7 @@ function Header({ loggedIn }) {
   return (
     <header className={`${((path === '/signin') || (path === '/signup')) ? 'header__reg-or-log' : 'header'} ${loggedIn && 'header_white-back'}`}>
       <Link to='/' className='header__logo'/>
-      {((path === '/signin') || (path === '/signup')) && <h2 className='header__title'>{path === '/register' ? 'Добро пожаловать!' : 'Рады видеть!'}</h2>}
+      {((path === '/signin') || (path === '/signup')) && <h2 className='header__title'>{path === '/signup' ? 'Добро пожаловать!' : 'Рады видеть!'}</h2>}
       {path === '/' ? (loggedIn ?
       <>
       <nav className='header__nav'>

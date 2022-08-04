@@ -1,8 +1,11 @@
 import './Footer.css';
+import { useLocation } from 'react-router-dom';
 
 function Footer() {
+  const path = useLocation().pathname;
+
   return (
-    <footer className="footer">
+    <footer className={(path === '/signup' || '/signin') ? 'footer__none' : 'footer'}>
       <h2 className='footer__title footer-text'>Учебный проект Яндекс.Практикум х BeatFilm.</h2>
       <div className='footer__container'>
         <div className='footer__copyright footer-text'>&copy; 2022</div>
