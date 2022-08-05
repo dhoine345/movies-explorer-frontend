@@ -2,10 +2,10 @@ import './Form.css'
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 
-function Form({ typeOfForm, text, path, linktext, buttontext }) {
+function Form({ typeOfForm, text, path, linktext, buttontext, greeting }) {
   return (
     <>
-      <Header />
+      <Header isAuthPage={true} loggedIn={false} greeting={greeting}/>
       <form className='form'>
         {typeOfForm === `register` &&
         <>
