@@ -1,12 +1,25 @@
 .checkbox {
+
+}
+
+.checkbox__label {
   position: relative;
   display: inline-block;
   width: 36px;
   height: 20px;
+  align-self: center;
 }
 
 .checkbox__input {
   display: none;
+}
+
+.checkbox__input:checked + .checkbox-slider {
+  background-color: #2BE080;
+}
+
+.checkbox__input:checked + .checkbox-slider::before {
+  left: 23px;
 }
 
 .checkbox-slider {
@@ -18,7 +31,7 @@
   position: absolute;
   right: 0;
   top: 0;
-  transition: .4s;
+  transition: .3s;
 }
 
 .checkbox-slider::before {
@@ -29,7 +42,7 @@
   height: 8px;
   left: 6px;
   position: absolute;
-  transition: .4s;
+  transition: .3s;
   width: 8px;
 }
 

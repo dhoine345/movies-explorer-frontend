@@ -2,11 +2,13 @@ import './FilterCheckbox.css';
 
 function FilterCheckbox() {
   return (
-    <fieldset className='checkbox'>
-      <input className='checkbox__input' />
-      <span className='checkbox-slider' />
-      <span className='checkbox-text'>Короткометражки</span>
-    </fieldset>
+    <div className='checkbox'>
+      <label className='checkbox__label'>
+        <input className='checkbox__input' type='checkbox' />
+        <span className='checkbox-slider'></span>
+        {/*<span className='checkbox-text'>Короткометражки</span>*/}
+      </label>
+    </div>
   )
 }
 
