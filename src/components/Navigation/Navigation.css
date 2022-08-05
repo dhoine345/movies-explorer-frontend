@@ -1,0 +1,79 @@
+.navigation {
+  margin: 28px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation__links {
+  padding-left: 63px;
+}
+
+.navigation__link {
+  text-decoration: none;
+  color: black;
+  font-weight: normal;
+  font-size: .812em;
+  line-height: 1.384;
+}
+
+.navigation__link_active {
+  font-weight: 500;
+}
+
+.navigation__link:last-child {
+  margin-left: 18px;;
+}
+
+.navigation__account-container {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.14;
+  display: flex;
+  width: 100px;
+  align-items: center;
+}
+
+.navigation__account-back {
+  background-color: #F9F9F9;
+  width: 26px;
+  height: 30px;
+  border-radius: 4px;
+  margin-left: 17px;
+}
+
+.navigation__account-svg {
+  background-image: url(../../images/icon__account.svg);
+  height: 14px;
+  margin: 8px 7.25px;
+}
+
+.navigation__hamburger-button {
+  width: 44px;
+  height: 44px;
+  display: none;
+  background-image: url(../../images/icon__menu.svg);
+  border: none;
+  background-color: #FFFFFF;
+  align-self: center;
+}
+
+@media screen and (max-width:768px) {
+  .navigation {
+    display: none;
+  }
+  .navigation__account-container {
+    display: none;
+  }
+  .navigation__hamburger-button {
+    display: block;
+  }
+}
+
+@media screen and (max-width:320px) {
+  .navigation__hamburger-button {
+    width: 40px;
+    height: 43px;
+  }
+}

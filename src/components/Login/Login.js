@@ -9,6 +9,7 @@ function Login() {
       linktext='Регистрация'
       path='/signup'
       buttontext='Войти'
+      greeting='Рады видеть!'
     />
   )
 }

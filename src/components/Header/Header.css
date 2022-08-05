@@ -12,7 +12,7 @@
   background-color: #FFFFFF;
 }
 
-.header__reg-or-log {
+.header__auth-page {
   background-color: #FFFFFF;
   height: 217px;
   display: flex;
@@ -40,52 +40,6 @@
   background-repeat: no-repeat;
 }
 
-.header__nav {
-  margin: 28px auto;
-}
-
-.header__account-container {
-  align-self: center;
-  text-decoration: none;
-  color: black;
-  font-weight: 500;
-  font-size: 0.875em;
-  line-height: 1.14;
-  display: flex;
-  width: 100px;
-  align-items: center;
-}
-
-.header__navlink {
-  text-decoration: none;
-  color: black;
-  font-weight: normal;
-  font-size: 1.23em;
-  line-height: 1.125;
-}
-
-.header__navlink_active {
-  font-weight: 500;
-}
-
-.header__navlink:last-child {
-  margin-left: 18px;;
-}
-
-.header__account-back {
-  background-color: #F9F9F9;
-  width: 26px;
-  height: 30px;
-  border-radius: 4px;
-  margin-left: 17px;
-}
-
-.header__account-svg {
-  background-image: url(../../images/icon__account.svg);
-  height: 14px;
-  margin: 8px 7.25px;
-}
-
 .header__link{
   color: #FFFFFF;
   font-weight: 500;
@@ -105,16 +59,6 @@
   color: black;
 }
 
-.header__hamburger-button {
-  width: 44px;
-  height: 44px;
-  display: none;
-  background-image: url(../../images/icon__menu.svg);
-  border: none;
-  background-color: #FFFFFF;
-  align-self: center;
-}
-
 @media screen and (max-width:768px) {
   .header {
     padding: 0 20px;
@@ -122,15 +66,6 @@
   .header__reg-or-log {
     height: 379px;
     padding: 232px 0 0 calc(100% - 75.78%);
-  }
-  .header__nav {
-    display: none;
-  }
-  .header__account-container {
-    display: none;
-  }
-  .header__hamburger-button {
-    display: block;
   }
 }
 
@@ -156,10 +91,6 @@
   }
   .header__link:last-child {
     margin-left: 14px;
-  }
-  .header__hamburger-button {
-    width: 40px;
-    height: 43px;
   }
 }
 

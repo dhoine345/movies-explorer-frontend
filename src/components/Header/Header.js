@@ -1,7 +1,8 @@
 import './Header.css';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Navigation from '../Navigation/Navigation';
 
-function Header({ loggedIn }) {
+function Header({ loggedIn, isAuthPage, greeting, isMainPage }) {
   function handleMouseEnter(e) {
     if (!e.target.classList.contains('header__link_active'))
       e.target.classList.add('header__link_active')
@@ -9,13 +10,25 @@ function Header({ loggedIn }) {
       : e.target.previousElementSibling.classList.remove('header__link_active')
   }
 
-  const path = useLocation().pathname;
-
   return (
-    <header className={`${((path === '/signin') || (path === '/signup')) ? 'header__reg-or-log' : 'header'}`}>
+    <header className={`${isAuthPage ? 'header__auth-page' : 'header'} ${loggedIn && !isMainPage && 'header_white-back'}`}>
       <Link to='/' className='header__logo'/>
-      {((path === '/signin') || (path === '/signup')) && <h2 className='header__title'>{path === '/signup' ? 'Добро пожаловать!' : 'Рады видеть!'}</h2>}
-      {((path === '/movies') || (path === '/saved-movies')) &&
+      {isAuthPage && <h2 className='header__title'>{greeting}</h2>}
+      <Navigation loggedIn={loggedIn}/>
+      {isMainPage && !loggedIn &&
+        <nav className='header__auth'>
+        <Link to='/signup' className='header__link' onMouseEnter={handleMouseEnter} >Регистрация</Link>
+        <Link to='/signin' className='header__link header__link_active' onMouseEnter={handleMouseEnter} >Войти</Link>
+      </nav>
+      }
+    </header>
+  );
+}
+
+export default Header;
+
+/*
+{((path === '/movies') || (path === '/saved-movies')) &&
       <>
         <nav className='header__nav'>
           <NavLink to='/movies' className='header__navlink' activeClassName='header__navlink_active'>Фильмы</NavLink>
@@ -27,14 +40,4 @@ function Header({ loggedIn }) {
         </Link>
         <button type='button' className='header__hamburger-button' />
       </>}
-      {path === '/' &&
-        <nav className='header__auth'>
-        <Link to='/signup' className='header__link' onMouseEnter={handleMouseEnter} >Регистрация</Link>
-        <Link to='/signin' className='header__link header__link_active' onMouseEnter={handleMouseEnter} >Войти</Link>
-      </nav>
-      }
-    </header>
-  );
-}
-
-export default Header;
+*/
