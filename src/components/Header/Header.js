@@ -27,17 +27,3 @@ function Header({ loggedIn, isAuthPage, greeting, isMainPage }) {
 
 export default Header;
 
-/*
-{((path === '/movies') || (path === '/saved-movies')) &&
-      <>
-        <nav className='header__nav'>
-          <NavLink to='/movies' className='header__navlink' activeClassName='header__navlink_active'>Фильмы</NavLink>
-          <NavLink to='/saved-movies' className='header__navlink' activeclassname='header__navlink_active'>Сохраненные фильмы</NavLink>
-        </nav>
-        <Link to='/profile' className='header__account-container'>
-          Аккаунт
-          <div className='header__account-back'><div className='header__account-svg' /></div>
-        </Link>
-        <button type='button' className='header__hamburger-button' />
-      </>}
-*/
