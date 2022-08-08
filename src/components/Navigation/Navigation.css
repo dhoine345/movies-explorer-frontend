@@ -63,9 +63,15 @@
   .navigation {
     display: none;
   }
+
   .navigation__account-container {
     display: none;
   }
+
+  .navigation__links {
+    display: none;
+  }
+
   .navigation__hamburger-button {
     display: block;
   }
