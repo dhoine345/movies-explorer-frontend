@@ -3,7 +3,7 @@ import Header from '../Header/Header';
 
 function SavedMovies() {
   return (
-    <Header loggedIn={true} />
+    <Header loggedIn={true} isWhiteBack={true}/>
   )
 }
 

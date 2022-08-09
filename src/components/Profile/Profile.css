@@ -29,7 +29,7 @@
   padding: 0 0 17px;
   border: none;
   outline: none;
-  font-weight: 400;
+  font-weight: normal;
   font-size: .687em;
   line-height: 1.18;
   text-align: end;
@@ -65,7 +65,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  font-weight: 400;
+  font-weight: normal;
   font-size: .812em;
   line-height: 1.23;
 }

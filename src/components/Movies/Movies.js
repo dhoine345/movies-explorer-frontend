@@ -1,13 +1,18 @@
 import './Movies.css';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
+import { data } from '../../utils/constants';
+import MoviesCard from '../MoviesCard/MoviesCard';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function Movies() {
-  return (
+  console.log(data.item1)
+   return (
     <>
-      <Header loggedIn={true} />
+      <Header loggedIn={true} isWhiteBack={true}/>
+      <SearchForm />
       <section className='movies'>
-        <SearchForm />
+        <MoviesCardList data={data} />
       </section>
     </>
   )

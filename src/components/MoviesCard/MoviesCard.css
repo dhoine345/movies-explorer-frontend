@@ -1,0 +1,9 @@
+.moviescard__title {
+  max-width: 364px;
+  margin: 0;
+}
+
+.moviescard__image {
+  max-width: 364px;
+  height: 203px;
+}
