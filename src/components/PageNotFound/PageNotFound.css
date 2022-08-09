@@ -51,7 +51,7 @@
   }
 
   .page-not-found__link {
-    padding: 0 calc(100% - 56%);
+    padding: 0 calc(100% - 56%) 30px;
     font-size: 12px;
     line-height: 15px;
   }
