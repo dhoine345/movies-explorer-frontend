@@ -9,7 +9,7 @@ import Header from '../Header/Header';
 function Main({ loggedIn }) {
   return (
     <>
-      <Header loggedIn={loggedIn} isMainPage={true}/>
+      <Header loggedIn={loggedIn} />
       <main className="main">
         <Promo />
         <AboutProject />

@@ -39,6 +39,7 @@ function App() {
         <Route path='*' element={<PageNotFound />} />
         <Route path='/movies' element={<Movies />} />
         <Route path='/saved-movies' element={<SavedMovies />} />
+        <Route path='/profile' element={<Profile loggedIn={loggedIn} />} />
       </Routes>
     </div>
   );
@@ -46,23 +47,4 @@ function App() {
 
 export default App;
 
-    /*<Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
-        <ProtectedRoute path="/movies">
-          <Movies />
-        </ProtectedRoute>
-        <ProtectedRoute path="/saved-movies">
-          <SavedMovies />
-        </ProtectedRoute>
-        <ProtectedRoute path="/profile">
-          <Profile />
-        </ProtectedRoute>
-        <Route path="/signin">
-          <Login />
-        </Route>
-        <Route exact path="/signup">
-          <Register />
-        </Route>
-      </Switch>*/
+
