@@ -11,7 +11,7 @@ import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   /*useEffect(() => {
     checkToken();

@@ -4,13 +4,23 @@ function MoviesCard({ moviescard }) {
   function getDurationFromMins(duration) {
     const hours = Math.trunc(duration/60);
     const minutes = duration % 60;
-    return hours + ':' + minutes;
-};
+    return hours + 'ч ' + minutes + 'м';
+  };
+
+  function addToFavorites(e) {
+    console.log(e.target)
+    e.target.classList.toggle('moviescard__favorites_active')
+  }
+
   return (
-    <article className='moviescard'>
-      <h2 className='moviescard__title'>{moviescard.nameRu}</h2>
-      <p className='moviescard__duration'>{getDurationFromMins(moviescard.duration)}</p>
-      <div className='moviescard__favorites' />
+    <article className='moviescard' >
+      <div className='moviescard__top-container'>
+        <div className='moviescard__text-container'>
+          <h2 className='moviescard__title'>{moviescard.nameRu}</h2>
+          <p className='moviescard__duration'>{getDurationFromMins(moviescard.duration)}</p>
+        </div>
+        <button className='moviescard__favorites' onClick={addToFavorites}/>
+      </div>
       <img className='moviescard__image' src={moviescard.trailerLink} alt={moviescard.nameRu}/>
     </article>
   )
