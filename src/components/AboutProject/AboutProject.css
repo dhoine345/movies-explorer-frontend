@@ -56,3 +56,9 @@
   font-weight: 500;
   color: #A0A0A0;
 }
+
+@media screen and (max-width:1200px) {
+  .project__table {
+    grid-template-columns: 100px 650px;
+  }
+}

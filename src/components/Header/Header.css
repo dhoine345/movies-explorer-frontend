@@ -43,8 +43,8 @@
 .header__link{
   color: #FFFFFF;
   font-weight: 500;
-  font-size: 0.875em;
-  line-height: 1.14;
+  font-size: 12px;
+  line-height: 1.33;
   text-decoration: none;
   border-radius: 3px;
   padding: 10px 20px;
@@ -61,11 +61,16 @@
 
 @media screen and (max-width:768px) {
   .header {
-    padding: 0 20px;
+    padding: 0 30px;
   }
+
   .header__reg-or-log {
     height: 379px;
     padding: 232px 0 0 calc(100% - 75.78%);
+  }
+
+  .header__link{
+    padding: 8px 20px;
   }
 }
 
@@ -73,22 +78,28 @@
   .header {
     padding: 0 14px;
   }
+
   .header__reg-or-log {
     height: 253px;
     padding: 56px 0 0 0;
     margin: 0 auto;
     text-align: center;
   }
+
   .header__logo {
     align-self: center;
   }
+
   .header__link{
     font-size: 0.625em;
     line-height: 1.6;
+    padding: 0 0;
   }
+
   .header__link_active {
     padding: 7px 12px;
   }
+
   .header__link:last-child {
     margin-left: 14px;
   }
