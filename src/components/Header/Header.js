@@ -12,7 +12,7 @@ function Header({ loggedIn, isAuthPage, greeting, isWhiteBack }) {
 
   return (
     <header className={`${isAuthPage ? 'header__auth-page' : 'header'} ${loggedIn && isWhiteBack && 'header_white-back'}`}>
-      <Link to='/' className='header__logo'/>
+      <Link to='/' className='header__logo link-hover'/>
       {isAuthPage && <h2 className='header__title'>{greeting}</h2>}
       <Navigation loggedIn={loggedIn}/>
       {!isAuthPage && !loggedIn &&

@@ -1,6 +1,6 @@
 .promo {
   background-color: #465DFF;
-  padding: 54px calc(100% - 94.53%) 60px;
+  padding: 51px calc(100% - 94.53%) 60px;
   display: flex;
   flex-direction: column;
 }
@@ -28,6 +28,7 @@
 @media screen and (max-width:930px) {
   .promo {
     padding: 300px calc(100% - 94.53%) 70px;
+    overflow: hidden;
   }
 
   .promo__logo {
@@ -56,17 +57,17 @@
 
 @media screen and (max-width:500px) {
   .promo {
-    padding: 183px 0 70px;
+    padding: 183px 0 40px;
   }
 
   .promo__logo {
     width: 680px;
     height: 230px;
-    margin-top: 60px;
+    margin-top: 63px;
   }
 
   .promo__title {
-    width: 90%;
+    width: 100%;
     font-size: 30px;
     line-height: 1.26;
   }
