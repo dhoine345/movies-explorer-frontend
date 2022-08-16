@@ -3,6 +3,7 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import { data } from '../../utils/constants';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Footer from '../Footer/Footer'
 
 function Movies() {
    return (
@@ -12,6 +13,7 @@ function Movies() {
       <section className='movies'>
         <MoviesCardList data={data} isSavedMovies={false}/>
       </section>
+      <Footer />
     </>
   )
 }

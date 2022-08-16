@@ -1,6 +1,6 @@
 import './MoviesCard.css';
 
-function MoviesCard({ moviescard }) {
+function MoviesCard({ moviescard, isSavedMovies }) {
   function getDurationFromMins(duration) {
     const hours = Math.trunc(duration/60);
     const minutes = duration % 60;
@@ -19,7 +19,7 @@ function MoviesCard({ moviescard }) {
           <h2 className='moviescard__title'>{moviescard.nameRu}</h2>
           <p className='moviescard__duration'>{getDurationFromMins(moviescard.duration)}</p>
         </div>
-        <button className='moviescard__favorites' onClick={addToFavorites}/>
+        <button className={`${isSavedMovies ? 'moviescard__delete-icon' : 'moviescard__favorites'} link-hover`} onClick={addToFavorites}/>
       </div>
       <img className='moviescard__image' src={moviescard.trailerLink} alt={moviescard.nameRu}/>
     </article>

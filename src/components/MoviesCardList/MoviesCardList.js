@@ -23,10 +23,12 @@ function MoviesCardList({ data, isSavedMovies }) {
             <MoviesCard
               moviescard={moviescard}
               key={moviescard.id}
+              isSavedMovies={isSavedMovies}
             />
           )
         })
     }
+      <button className='moviescardlist__button link-hover' >Ещё</button>
     </section>
   )
 }
