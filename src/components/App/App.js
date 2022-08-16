@@ -9,9 +9,10 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import Preloader from '../Preloader/Preloader'
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   /*useEffect(() => {
     checkToken();
@@ -40,6 +41,7 @@ function App() {
         <Route path='/movies' element={<Movies />} />
         <Route path='/saved-movies' element={<SavedMovies />} />
         <Route path='/profile' element={<Profile loggedIn={loggedIn} />} />
+        <Route path='/preloader' element={<Preloader />} />
       </Routes>
     </div>
   );
