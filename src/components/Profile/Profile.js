@@ -19,8 +19,8 @@ function Profile({ loggedIn }) {
             </label>
           </fieldset>
           <fieldset className='profile__buttons'>
-            <button className='profile__button'>Редактировать</button>
-            <button className='profile__button profile__button_exit'>Выйти из аккаунта</button>
+            <button className='profile__button link-hover'>Редактировать</button>
+            <button className='profile__button profile__button_exit link-hover'>Выйти из аккаунта</button>
           </fieldset>
         </form>
       </section>

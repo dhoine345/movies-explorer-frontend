@@ -14,10 +14,10 @@
 
 .header__auth-page {
   background-color: #FFFFFF;
-  height: 217px;
+  width: 396px;
   display: flex;
   flex-direction: column;
-  padding: 70px 0 0 calc(100% - 65.5%);
+  margin: 70px auto 37px;
   box-sizing: border-box;
 }
 
@@ -69,8 +69,27 @@
     padding: 232px 0 0 calc(100% - 75.78%);
   }
 
+  .header__auth-page {
+    margin: 232px auto 40px;
+  }
+
   .header__link{
     padding: 8px 20px;
+  }
+}
+
+@media screen and (max-width:550px) {
+  .header__auth-page {
+    align-items: center;
+    margin: 56px auto 80px;
+    width: auto;
+  }
+
+  .header__title {
+    margin: 50px 0 0 0;
+    font-weight: 500;
+    font-size: 1.5em;
+    line-height: 1.21;
   }
 }
 
