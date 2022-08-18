@@ -41,6 +41,7 @@ function Movies() {
       filterArray();
     }
     setInputValue('');
+    setChecekd(false);
   };
 
   /*useEffect(() => {
