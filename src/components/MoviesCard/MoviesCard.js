@@ -16,12 +16,12 @@ function MoviesCard({ moviescard, isSavedMovies }) {
     <article className='moviescard' >
       <div className='moviescard__top-container'>
         <div className='moviescard__text-container'>
-          <h2 className='moviescard__title'>{moviescard.nameRu}</h2>
+          <h2 className='moviescard__title'>{moviescard.nameRU}</h2>
           <p className='moviescard__duration'>{getDurationFromMins(moviescard.duration)}</p>
         </div>
         <button className={`${isSavedMovies ? 'moviescard__delete-icon' : 'moviescard__favorites'} link-hover`} onClick={addToFavorites}/>
       </div>
-      <img className='moviescard__image' src={moviescard.trailerLink} alt={moviescard.nameRu}/>
+      <img className='moviescard__image' src={`https://api.nomoreparties.co/${moviescard.image.url}`} alt={moviescard.nameRu}/>
     </article>
   )
 }
