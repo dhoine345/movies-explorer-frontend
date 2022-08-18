@@ -1,0 +1,135 @@
+.project {
+  padding: 0 calc(100% - 94.53%) 104px;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+
+.project__description {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 72px 0 0 0;
+  margin: 0;
+}
+
+.project__article:last-of-type {
+  margin-left: 52px;
+}
+
+.project__article-title {
+  margin: 0 0 25px 0;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -.04em;
+}
+
+.project__article-text {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.43;
+  margin: 0;
+}
+
+.project__table {
+  list-style: none;
+  margin: 110px 0 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 228px auto;
+  grid-template-rows: 36px 36px;
+}
+
+.project__table-cell {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.214;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.project__table-cell_top-left {
+  background-color: #2BE080;
+}
+
+.project__table-cell_top-right {
+  background-color: #F2F2F2;
+}
+
+.project__table-cell_bottom {
+  color: #A0A0A0;
+}
+
+@media screen and (max-width:1100px) {
+  .project__table {
+    grid-template-columns: 18.3vw auto;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .project {
+    padding: 0 calc(100% - 93.48%) 85px;
+  }
+
+  .project__description {
+    padding: 70px 0 0 0;
+  }
+
+  .project__article-text {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .project__article-title {
+    margin: 0 0 22px 0;
+  }
+
+  .project__table {
+    margin: 92px 0 0 0;
+  }
+
+  .project__article:last-of-type {
+    margin-left: 40px;
+  }
+}
+
+@media screen and (max-width:500px) {
+  .project {
+    padding: 0 calc(100% - 94.37%) 70px;
+  }
+
+  .project__description {
+    flex-direction: column;
+    padding: 60px 0 0 0;
+  }
+
+  .project__article-title {
+    font-size: 18px;
+    margin: 0 0 15px 0;
+  }
+
+  .project__article {
+    margin-bottom: 56px;
+  }
+
+  .project__article:last-of-type {
+    margin: 0;
+  }
+
+  .project__article-text {
+    font-size: 11px;
+  }
+
+  .project__table {
+    margin: 60px 0 0 0;
+    grid-template-columns: 100px auto;
+    grid-template-rows: 35px 35px;
+  }
+
+  .project__table-cell {
+    font-size: 11px;
+    line-height: 1.18;
+  }
+}
+

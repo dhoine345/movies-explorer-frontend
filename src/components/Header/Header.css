@@ -1,0 +1,127 @@
+.header {
+  background-color: #465DFF;
+  height: 74px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 calc(100% - 94.53%);
+  box-sizing: border-box;
+}
+
+.header_white-back {
+  background-color: #FFFFFF;
+}
+
+.header__auth-page {
+  background-color: #FFFFFF;
+  width: 396px;
+  display: flex;
+  flex-direction: column;
+  margin: 70px auto 37px;
+  box-sizing: border-box;
+}
+
+.header__title {
+  margin: 42px 0 0 0;
+  font-weight: 500;
+  font-size: 1.5em;
+  line-height: 1.21;
+}
+
+.header_login {
+  background-color: #FFFFFF;
+}
+
+.header__logo {
+  background-image: url(../../images/logo.svg);
+  width: 38px;
+  height: 38px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+.header__link{
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  text-decoration: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+}
+
+.header__link:last-child {
+  margin-left: 10px;
+}
+
+.header__link_active {
+  background-color: #2BE080;
+  color: black;
+}
+
+@media screen and (max-width:768px) {
+  .header {
+    padding: 0 30px;
+  }
+
+  .header__reg-or-log {
+    height: 379px;
+    padding: 232px 0 0 calc(100% - 75.78%);
+  }
+
+  .header__auth-page {
+    margin: 232px auto 40px;
+  }
+
+  .header__link{
+    padding: 8px 20px;
+  }
+}
+
+@media screen and (max-width:550px) {
+  .header__auth-page {
+    align-items: center;
+    margin: 56px auto 80px;
+    width: auto;
+  }
+
+  .header__title {
+    margin: 50px 0 0 0;
+    font-weight: 500;
+    font-size: 1.5em;
+    line-height: 1.21;
+  }
+}
+
+@media screen and (max-width:400px) {
+  .header {
+    padding: 0 14px;
+  }
+
+  .header__reg-or-log {
+    height: 253px;
+    padding: 56px 0 0 0;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .header__logo {
+    align-self: center;
+  }
+
+  .header__link{
+    font-size: 0.625em;
+    line-height: 1.6;
+    padding: 0 0;
+  }
+
+  .header__link_active {
+    padding: 7px 12px;
+  }
+
+  .header__link:last-child {
+    margin-left: 14px;
+  }
+}
+
+

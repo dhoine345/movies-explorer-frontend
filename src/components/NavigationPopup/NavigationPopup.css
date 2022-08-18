@@ -1,0 +1,114 @@
+.navigation-popup {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.navigation-popup_opened {
+  display: block;
+}
+
+.navigation-popup__container {
+  background-color: #FFFFFF;
+  width: calc(100% - 32%);
+  height: 100vh;
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation-popup__close-icon {
+  background-image: url(../../images/icon-close.svg);
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  position: absolute;
+  right: 22px;
+  top: 22px;
+}
+
+.navigation-popup__links {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 161px auto 0;
+  align-items: center;
+}
+
+.navigation-popup__link {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  font-size: 1.125em;
+  line-height: 1.222;
+  margin-bottom: 27px;
+  text-align: center;
+}
+
+.navigation-popup__link_active {
+  border-bottom: 2px solid black;
+  padding-bottom: 3px;
+}
+
+.navigation-popup__link:last-child {
+  margin-bottom: 0;
+}
+
+.navigation-popup__account-container {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.14;
+  display: flex;
+  width: 100px;
+  align-items: center;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 92px;
+  align-self: center;
+}
+
+.navigation-popup__account-back {
+  background-color: #F9F9F9;
+  width: 26px;
+  height: 30px;
+  border-radius: 4px;
+  margin-left: 17px;
+}
+
+.navigation-popup__account-svg {
+  background-image: url(../../images/icon__account.svg);
+  height: 14px;
+  margin: 8px 7.25px;
+}
+
+@media screen and (min-width:769px) {
+  .navigation-popup {
+    display: none;
+  }
+}
+
+@media screen and (max-width:550px) {
+  .navigation-popup__container {
+    width: 100%;
+  }
+
+  .navigation-popup__account-container {
+    bottom: 48px;
+  }
+
+  .navigation-popup__links {
+    margin: 144px auto 0;
+  }
+
+  .navigation-popup__link {
+    margin-bottom: 24px;
+  }
+}
