@@ -12,7 +12,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import Preloader from '../Preloader/Preloader'
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   /*useEffect(() => {
     checkToken();
@@ -35,7 +35,7 @@ function App() {
     <div className="page">
       <Routes>
         <Route path='/' element={<Main loggedIn={loggedIn} />} />
-        <Route path="/signup" element={<Register />} />
+        <Route path="/signup" element={<Register isLoggedIn={setLoggedIn} />} />
         <Route path="/signin" element={<Login />} />
         <Route path='*' element={<PageNotFound />} />
         <Route path='/movies' element={<Movies />} />
