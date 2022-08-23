@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import { useEffect, useState } from 'react';
 
-function Form({ typeOfForm, text, path, linktext, buttontext, greeting }) {
+function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegister }) {
   const [inputErrorName, setInputErrorName] = useState('');
   const [inputErrorEmail, setInputErrorEmail] = useState('');
   const [inputErrorPassword, setInputErrorPassword] = useState('');
@@ -14,7 +14,8 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting }) {
 
   const validity = inputNameValidity && inputEmailValidity && inputPasswordValidity;
 
-  const hadleInputNameError = (e) => {
+  const hadleInputNameChange = (e) => {
+    setName(e.target.value)
     if (e.target.validity.valid) {
       setInputErrorName('')
       setinputNameValidity(true)
@@ -24,7 +25,8 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting }) {
     }
   }
 
-  const hadleInputEmailError = (e) => {
+  const hadleInputEmailChange = (e) => {
+    setEmail(e.target.value)
     if (e.target.validity.valid) {
       setInputErrorEmail('')
       setinputEmailValidity(true)
@@ -34,7 +36,8 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting }) {
     }
   }
 
-  const hadleInputPasswordError = (e) => {
+  const hadleInputPasswordChange = (e) => {
+    setPassword(e.target.value)
     if (e.target.validity.valid) {
       setInputErrorPassword('')
       setinputPasswordValidity(true)
@@ -50,24 +53,34 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting }) {
 
   useEffect(() => {
     changeValidity();
+    console.log(name)
   }, )
+
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onRegister(email, password, name);
+  }
 
   return (
     <>
       <Header isAuthPage={true} loggedIn={false} greeting={greeting}/>
-      <form className='form'>
+      <form className='form' onSubmit={handleSubmit}>
         {typeOfForm === `register` &&
         <>
         <label className='form__label' htmlFor='name'>Имя</label>
-        <input className='form__input' id='name' required minLength='2' maxLength='30' type='text' onChange={hadleInputNameError} />
+        <input className='form__input' id='name' required minLength='2' maxLength='30' type='text' onChange={hadleInputNameChange} />
         <span className='form__input-error'>{inputErrorName}</span>
         </>
         }
         <label className='form__label' htmlFor='email'>E-mail</label>
-        <input className='form__input' id='email' required type='email' onChange={hadleInputEmailError} />
+        <input className='form__input' id='email' required type='email' onChange={hadleInputEmailChange} />
         <span className='form__input-error'>{inputErrorEmail}</span>
         <label className='form__label' htmlFor='password'>Пароль</label>
-        <input className='form__input' id='password' required minLength='8' maxLength='30' type='password' onChange={hadleInputPasswordError} />
+        <input className='form__input' id='password' required minLength='8' maxLength='30' type='password' onChange={hadleInputPasswordChange} />
         <span className='form__input-error'>{inputErrorPassword}</span>
         <button className={`${buttonActive ? 'form__button link-hover' : 'form__button form__button_disabled'}`}>{buttontext}</button>
         <p className='form__text'>{text}<Link className='form__link' to={path}>{linktext}</Link></p>
