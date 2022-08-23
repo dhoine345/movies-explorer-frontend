@@ -32,7 +32,30 @@ class Api {
       },
       body: JSON.stringify({email, password})
     })
-    .then(res => this._getResponseData(res));
+      .then(res => this._getResponseData(res));
+  }
+
+  getUserInfo(token) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(res => this._getResponseData(res));
+  }
+
+  updateProfile(name, email) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this._header,
+      body: JSON.stringify({
+        name,
+        email
+      })
+    })
+      .then(res => this._getResponseData(res))
   }
 }
 
