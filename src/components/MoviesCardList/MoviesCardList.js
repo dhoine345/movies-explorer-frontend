@@ -1,7 +1,7 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ data, isSavedMovies }) {
+function MoviesCardList({ data, isSavedMovies, handlerAddButton, isAddButton }) {
   return (
     <section className='moviescardlist'>
       {!isSavedMovies ?
@@ -28,7 +28,12 @@ function MoviesCardList({ data, isSavedMovies }) {
           )
         })
     }
-      <button className='moviescardlist__button link-hover' >Ещё</button>
+      <button
+        className={`moviescardlist__button link-hover ${!isAddButton && 'moviescardlist__button_disabled'}`}
+        onClick={handlerAddButton}
+      >
+        Ещё
+      </button>
     </section>
   )
 }

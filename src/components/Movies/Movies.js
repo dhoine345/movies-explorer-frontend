@@ -9,51 +9,92 @@ import { getAllMovies } from '../../utils/MoviesApi';
 function Movies() {
   const [inputValue, setInputValue] = useState('');
   const [moviesArray, setmoviesArray] = useState([]);
-  const [filteredMoviesArray, setFilteredMoviesArray] = useState([]);
   const [checked, setChecekd] = useState(false);
-
-  const handleCheckBoxChange = () => {
-    !checked ? setChecekd(true) : setChecekd(false);
-  }
+  const [lengthOfArray, setlengthOfArray] = useState();
+  const [countToAdd, setCountToAdd] = useState();
+  const [arrayFromStorage, setArrayFromStorage] = useState([]);
+  const [arrayToRender, setArrayToRender] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isAddButton, setIsAddButton] = useState();
 
   useEffect(() => {
     getAllMovies()
       .then(res => setmoviesArray(res))
   }, []);
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value)
+  useEffect(() => {
+    getInfoFromStorage();
+  }, []);
+
+  useEffect(() => (
+    setNumberOfMovies(windowWidth)
+  ), [windowWidth]);
+
+  useEffect(() => {
+    setArrayToRender(arrayFromStorage.slice(0, lengthOfArray))
+  }, [arrayFromStorage, lengthOfArray]);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => setWindowWidth(window.innerWidth))
+  },);
+
+  useEffect(() => {
+    arrayToRender.length === arrayFromStorage.length ? setIsAddButton(false) : setIsAddButton(true)
+  }, [arrayToRender, arrayFromStorage])
+
+  const handleInputChange = (e) => setInputValue(e.target.value);
+  const handleCheckBoxChange = () => !checked ? setChecekd(true) : setChecekd(false);
+
+  const setNumberOfMovies = (width) => {
+    if (width > 950) {
+      setlengthOfArray(12)
+      setCountToAdd(3)
+    } else if (width > 500 && width < 950) {
+        setlengthOfArray(8)
+        setCountToAdd(2)
+      } else if (width < 500) {
+        setlengthOfArray(5)
+        setCountToAdd(1)
+        }
   };
 
   const filterArray = () => {
-    setFilteredMoviesArray(moviesArray.filter((movie) => {
+    localStorage.setItem('moviesArray', JSON.stringify(moviesArray.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(inputValue)
     }).filter((item) => {
       return (checked ? (item.duration <= 40) : item)
-    }))
-  }
-
-  const searchMovies = () => {
-    if (!filteredMoviesArray.length) {
-      filterArray();
-    } else {
-      filteredMoviesArray.length = 0;
-      filterArray();
-    }
-    setInputValue('');
-    setChecekd(false);
+    })))
   };
 
-  /*useEffect(() => {
-    searcheMovies()
-  },)*/
+  const pushToStorage = () => {
+    filterArray();
+    localStorage.setItem('isChecked', JSON.stringify(checked));
+    localStorage.setItem('inputValue', JSON.stringify(inputValue));
+  };
 
-  console.log('moviesArray', moviesArray)
-  console.log('filteredMoviesArray', filteredMoviesArray)
+  const getInfoFromStorage = () => {
+    setArrayFromStorage(JSON.parse(localStorage.getItem('moviesArray')));
+    setChecekd(JSON.parse(localStorage.getItem('isChecked')));
+    setInputValue(JSON.parse(localStorage.getItem('inputValue')));
+  };
 
-  return (
+  const searchMovies = () => {
+    pushToStorage();
+    getInfoFromStorage();
+    setInputValue('');
+  };
+
+  const handleAddButton = () => setlengthOfArray(lengthOfArray + countToAdd);
+
+  const test1 = () => {
+    console.log('из хранилища', arrayFromStorage)
+    console.log('первые 15', arrayToRender)
+  }
+
+    return (
     <>
       <Header loggedIn={true} isWhiteBack={true}/>
+      <button style={{width: 60, height: 60}} onClick={test1}>Данные из хранилища</button>
       <SearchForm
         inputValue={inputValue}
         handleInputChange={handleInputChange}
@@ -62,7 +103,12 @@ function Movies() {
         onChangeCheckBox={handleCheckBoxChange}
       />
       <section className='movies'>
-        <MoviesCardList data={filteredMoviesArray} isSavedMovies={false}/>
+        <MoviesCardList
+          data={arrayToRender}
+          isSavedMovies={false}
+          handlerAddButton={handleAddButton}
+          isAddButton={isAddButton}
+        />
       </section>
       <Footer />
     </>

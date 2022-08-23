@@ -21,6 +21,10 @@
   grid-column: 2;
 }
 
+.moviescardlist__button_disabled {
+  display: none;
+}
+
 @media screen and (max-width:950px) {
   .moviescardlist {
     padding: 0 calc(100% - 96.09%);
