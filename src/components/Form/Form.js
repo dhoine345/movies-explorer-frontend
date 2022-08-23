@@ -1,9 +1,9 @@
 import './Form.css'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import { useEffect, useState } from 'react';
 
-function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegister }) {
+function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegister, onLogin }) {
   const [inputErrorName, setInputErrorName] = useState('');
   const [inputErrorEmail, setInputErrorEmail] = useState('');
   const [inputErrorPassword, setInputErrorPassword] = useState('');
@@ -53,16 +53,16 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegist
 
   useEffect(() => {
     changeValidity();
-    console.log(name)
   }, )
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const location = useLocation()
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister(email, password, name);
+    location === 'signup' ? onRegister(email, password, name) : onLogin(email, password);
   }
 
   return (
