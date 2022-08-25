@@ -57,6 +57,45 @@ class Api {
     })
       .then(res => this._getResponseData(res))
   }
+
+  addMovie({ country, director, duration, year, description, image, trailerLink, thumbnail, movieId, nameRU, nameEN }) {
+    return fetch(`${this._baseUrl}/movies`, {
+      method: 'POST',
+      headers: this._header,
+      body: JSON.stringify({
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image,
+        trailerLink,
+        thumbnail,
+        movieId,
+        nameRU,
+        nameEN
+      })
+    })
+      .then(res => this._getResponseData(res))
+  }
+
+  removeMovie(id) {
+    return fetch(`${this._baseUrl}/movies/${id}`, {
+      method: 'DELETE',
+      headers: this._header,
+    })
+      .then(res => this._getResponseData(res))
+  }
+
+  getFavoriteMovies() {
+    return fetch(`${this._baseUrl}/movies`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
+      .then(res => this._getResponseData(res))
+  }
 }
 
 export const api = new Api(apiConfig);
