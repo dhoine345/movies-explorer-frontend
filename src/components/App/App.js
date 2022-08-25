@@ -9,7 +9,6 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
-import Preloader from '../Preloader/Preloader'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { api } from '../../utils/MainApi';
 
@@ -45,7 +44,6 @@ function App() {
           <Route path='/movies' element={<Movies />} />
           <Route path='/saved-movies' element={<SavedMovies />} />
           <Route path='/profile' element={<Profile loggedIn={loggedIn} isLoggedIn={setLoggedIn} updateUser={setCurrentUser} />} />
-          <Route path='/preloader' element={<Preloader />} />
         </Routes>
       </CurrentUserContext.Provider>
     </div>
