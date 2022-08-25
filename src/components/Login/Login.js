@@ -2,9 +2,11 @@ import './Login.css'
 import Form from '../Form/Form';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../utils/MainApi';
+import { useState } from 'react';
 
 function Login({ isLoggedIn }) {
   const history = useNavigate();
+  const [isError, setError] = useState(false);
 
   const handleLogin = (email, password) => {
     api.login(email, password)
@@ -15,7 +17,8 @@ function Login({ isLoggedIn }) {
           localStorage.setItem('jwt', res.token);
         }
       })
-  }
+      .catch(() => setError(true))
+  };
 
   return (
     <Form
@@ -26,6 +29,7 @@ function Login({ isLoggedIn }) {
       buttontext='Войти'
       greeting='Рады видеть!'
       onLogin={handleLogin}
+      isError={isError}
     />
   )
 }

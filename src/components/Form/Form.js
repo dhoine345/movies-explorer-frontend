@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import { useEffect, useState } from 'react';
 
-function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegister, onLogin }) {
+function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegister, onLogin, isError }) {
   const [inputErrorName, setInputErrorName] = useState('');
   const [inputErrorEmail, setInputErrorEmail] = useState('');
   const [inputErrorPassword, setInputErrorPassword] = useState('');
@@ -16,11 +16,11 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegist
   const [email, setEmail] = useState('');
   const location = useLocation();
 
-  const validity = location === 'signup' ? inputNameValidity && inputEmailValidity && inputPasswordValidity : inputEmailValidity && inputPasswordValidity
+  const validity = location === 'signup' ? inputNameValidity && inputEmailValidity && inputPasswordValidity : inputEmailValidity && inputPasswordValidity;
 
   useEffect(() => {
-    changeValidity();
-  }, )
+    validity ? setButtonActive(true) : setButtonActive(false);
+  }, [validity]);
 
   const hadleInputNameChange = (e) => {
     setName(e.target.value)
@@ -31,7 +31,7 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegist
       setInputErrorName(e.target.validationMessage)
       setinputNameValidity(false)
     }
-  }
+  };
 
   const hadleInputEmailChange = (e) => {
     setEmail(e.target.value)
@@ -42,7 +42,7 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegist
       setInputErrorEmail(e.target.validationMessage)
       setinputEmailValidity(false)
     }
-  }
+  };
 
   const hadleInputPasswordChange = (e) => {
     setPassword(e.target.value)
@@ -53,16 +53,15 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegist
       setInputErrorPassword(e.target.validationMessage)
       setinputPasswordValidity(false)
     }
-  }
-
-  const changeValidity = () => {
-    validity ? setButtonActive(true) : setButtonActive(false)
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    location === 'signup' ? onRegister(email, password, name) : onLogin(email, password);
-  }
+    if (location === 'signup') {
+      onRegister(email, password, name)
+    }
+    onLogin(email, password)
+  };
 
   return (
     <>
@@ -81,6 +80,7 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegist
         <label className='form__label' htmlFor='password'>Пароль</label>
         <input className='form__input' id='password' required minLength='8' maxLength='30' type='password' onChange={hadleInputPasswordChange} />
         <span className='form__input-error'>{inputErrorPassword}</span>
+        <p className={`form__error ${isError && 'form__error_active'}`}>Что-то пошло не так</p>
         <button type='submit' disabled={!validity} className={`${buttonActive ? 'form__button link-hover' : 'form__button form__button_disabled'}`}>{buttontext}</button>
         <p className='form__text'>{text}<Link className='form__link' to={path}>{linktext}</Link></p>
       </form>
