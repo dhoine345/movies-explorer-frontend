@@ -59,6 +59,10 @@ function MoviesCard({ moviescard, renderSavedMovies, savedMovies, id }) {
     })
   }
 
+  const test = () => {
+    console.log(moviescard)
+  }
+
   const removeFromFavorites = () => {
     location === '/saved-movies' ?
     api.removeMovie(moviescard._id)
@@ -85,6 +89,7 @@ function MoviesCard({ moviescard, renderSavedMovies, savedMovies, id }) {
         className='moviescard__image'
         src={location === '/saved-movies' ? moviescard.image : baseUrl + moviescard.image.url}
         alt={moviescard.nameRu}
+        onClick={test}
       />
     </article>
   )
