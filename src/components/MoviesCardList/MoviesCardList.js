@@ -23,8 +23,6 @@ function MoviesCardList() {
   const [isLoading, setLoading] = useState(false);
   const location = useLocation().pathname;
 
-  const handleInputChange = (e) => setInputValue(e.target.value);
-
   const handleCheckBoxChange = () => !isChecked ? setChecekd(true) : setChecekd(false);
 
   const getSavedMovies = () => {
@@ -113,7 +111,7 @@ function MoviesCardList() {
       <button style={{width: 60, height: 60}} onClick={test1}>Данные из хранилища</button>
       <SearchForm
         inputValue={inputValue}
-        handleInputChange={handleInputChange}
+        setInputValue={setInputValue}
         renderSerchedMovies={searchMovies}
         checked={isChecked}
         onChangeCheckBox={handleCheckBoxChange}

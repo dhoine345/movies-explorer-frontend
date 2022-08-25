@@ -1,13 +1,15 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ inputValue, handleInputChange, renderSerchedMovies, checked, onChangeCheckBox, onLoading }) {
+function SearchForm({ inputValue, setInputValue, renderSerchedMovies, checked, onChangeCheckBox, onLoading }) {
   function showPreloader() {
     onLoading(true);
     setTimeout(async () => {
       onLoading(false);
     }, 1000);
-}
+  };
+
+  const handleInputChange = (e) => setInputValue(e.target.value);
 
   const handleSearchRequest = (e) => {
     e.preventDefault();
