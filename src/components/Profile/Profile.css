@@ -35,11 +35,6 @@
   text-align: end;
 }
 
-
-.profile__input::placeholder {
-  color: black;
-}
-
 .profile__label {
   display: flex;
   justify-content: space-between;

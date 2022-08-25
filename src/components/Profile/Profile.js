@@ -38,11 +38,11 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
           <fieldset className='profile__inputs'>
             <label className='profile__label' htmlFor='name'>
               <h3 className='profile__input-title'>Имя</h3>
-              <input className='profile__input' id='name' placeholder={currentUser.name} onChange={handleInputNameChange} />
+              <input className='profile__input' id='name' defaultValue={currentUser.name} onChange={handleInputNameChange} />
             </label>
             <label className='profile__label' htmlFor='email'>
               <h3 className='profile__input-title'>E-mail</h3>
-              <input className='profile__input' id='email' placeholder={currentUser.email} onChange={handleInputEmailChange} />
+              <input className='profile__input' id='email' defaultValue={currentUser.email} onChange={handleInputEmailChange} />
             </label>
           </fieldset>
           <fieldset className='profile__buttons'>
