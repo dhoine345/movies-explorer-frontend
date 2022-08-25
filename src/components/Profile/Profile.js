@@ -10,9 +10,26 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [inputErrorName, setInputErrorName] = useState('');
+  const [inputErrorEmail, setInputErrorEmail] = useState('');
 
-  const handleInputNameChange = (e) => setName(e.target.value);
-  const handleInputEmailChange = (e) => setEmail(e.target.value);
+  const hadleInputNameChange = (e) => {
+    setName(e.target.value)
+    if (e.target.validity.valid) {
+      setInputErrorName('')
+    } else {
+      setInputErrorName(e.target.validationMessage)
+    }
+  }
+
+  const hadleInputEmailChange = (e) => {
+    setEmail(e.target.value)
+    if (e.target.validity.valid) {
+      setInputErrorEmail('')
+    } else {
+      setInputErrorEmail(e.target.validationMessage)
+    }
+  }
 
   const logOut = () => {
     localStorage.removeItem('jwt');
@@ -38,11 +55,13 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
           <fieldset className='profile__inputs'>
             <label className='profile__label' htmlFor='name'>
               <h3 className='profile__input-title'>Имя</h3>
-              <input className='profile__input' id='name' defaultValue={currentUser.name} onChange={handleInputNameChange} />
+              <span className='profile__input-error'>{inputErrorName}</span>
+              <input className='profile__input' id='name' required minLength='2' maxLength='30' type='text' defaultValue={currentUser.name} onChange={hadleInputNameChange} />
             </label>
             <label className='profile__label' htmlFor='email'>
               <h3 className='profile__input-title'>E-mail</h3>
-              <input className='profile__input' id='email' defaultValue={currentUser.email} onChange={handleInputEmailChange} />
+              <span className='profile__input-error'>{inputErrorEmail}</span>
+              <input className='profile__input' id='email' required type='email' defaultValue={currentUser.email} onChange={hadleInputEmailChange} />
             </label>
           </fieldset>
           <fieldset className='profile__buttons'>
