@@ -91,11 +91,18 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
             </label>
           </fieldset>
           <fieldset className='profile__buttons'>
-            <button disabled={!buttonActive} className='profile__button link-hover'>Редактировать</button>
+            <button
+              disabled={!buttonActive}
+              className='profile__button link-hover'
+            >
+              Редактировать
+            </button>
             <button
               className='profile__button profile__button_exit link-hover'
               onClick={logOut}
-            >Выйти из аккаунта</button>
+            >
+              Выйти из аккаунта
+            </button>
           </fieldset>
         </form>
       </section>
