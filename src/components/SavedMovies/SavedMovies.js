@@ -10,7 +10,7 @@ function SavedMovies() {
     <Header loggedIn={true} isWhiteBack={true}/>
     <SearchForm />
     <section className='movies'>
-      <MoviesCardList isSavedMovies={true}/>
+      <MoviesCardList />
     </section>
     <Footer />
   </>
