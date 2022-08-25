@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { api } from "../../utils/MainApi";
 
 function Profile({ loggedIn, isLoggedIn, updateUser }) {
-  const currentUser = useContext(CurrentUserContext)
+  const history = useNavigate();
+  const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
@@ -15,17 +17,21 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
   const logOut = () => {
     localStorage.removeItem('jwt');
     isLoggedIn(false);
-  }
+    history('/');
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     api.updateProfile(name, email)
       .then(res => updateUser(res.data))
-  }
+  };
 
   return (
     <>
-      <Header isWhiteBack={true} loggedIn={loggedIn} />
+      <Header
+        isWhiteBack={true}
+        loggedIn={loggedIn}
+      />
       <section className='profile'>
         <form className='profile__form' onSubmit={handleSubmit}>
           <h2 className='profile__title'>{`Привет, ${currentUser.name}!`}</h2>
