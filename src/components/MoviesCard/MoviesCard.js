@@ -4,7 +4,7 @@ import { baseUrl } from '../../utils/constants';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCard({ moviescard, renderSavedMovies, favoriteMovies, id }) {
+function MoviesCard({ moviescard, renderSavedMovies, savedMovies, id }) {
   const [isSavedStatus, setSavedStatus] = useState(false);
   const [styleOfButton, setStyleOfButton] = useState('');
   const location = useLocation().pathname;
@@ -27,10 +27,10 @@ function MoviesCard({ moviescard, renderSavedMovies, favoriteMovies, id }) {
   };
 
   useEffect(() => {
-    setSavedStatus(favoriteMovies.some((movie) => {
+    setSavedStatus(savedMovies.some((movie) => {
       return movie.movieId === id
     }))
-  }, [favoriteMovies, id])
+  }, [savedMovies, id])
 
   const putToFavorites = () => {
     api.addMovie({
@@ -54,7 +54,7 @@ function MoviesCard({ moviescard, renderSavedMovies, favoriteMovies, id }) {
   }
 
   const findMovieId = async () => {
-    return favoriteMovies.find((movie) => {
+    return savedMovies.find((movie) => {
       return movie.movieId === moviescard.id
     })
   }

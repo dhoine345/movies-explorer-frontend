@@ -5,12 +5,12 @@ import { useLocation } from 'react-router-dom';
 import { api } from '../../utils/MainApi';
 
 function MoviesCardList({ data, handlerAddButton, isAddButton }) {
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const location = useLocation().pathname;
 
   const getSavedMovies = () => {
     api.getFavoriteMovies()
-      .then(res => setFavoriteMovies(res.data))
+      .then(res => setSavedMovies(res.data))
   }
 
   useEffect(() => {
@@ -20,13 +20,13 @@ function MoviesCardList({ data, handlerAddButton, isAddButton }) {
   return (
     <section className='moviescardlist'>
       {
-        (data || favoriteMovies).map((moviescard) => {
+        (data || savedMovies).map((moviescard) => {
           return (
             <MoviesCard
               moviescard={moviescard}
               key={location === '/saved-movies' ? moviescard.movieId : moviescard.id}
               renderSavedMovies={getSavedMovies}
-              favoriteMovies={favoriteMovies}
+              savedMovies={savedMovies}
               id={moviescard.movieId || moviescard.id}
             />
           )
