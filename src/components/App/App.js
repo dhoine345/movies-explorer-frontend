@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     checkToken();
-  },[]);
+  },[loggedIn]);
 
   const checkToken = () => {
     let token = localStorage.getItem('jwt');
