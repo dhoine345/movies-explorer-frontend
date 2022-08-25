@@ -5,3 +5,5 @@ export const apiConfig = {
     'Content-Type': 'application/json',
   }
 };
+
+export const baseUrl = 'https://api.nomoreparties.co';
