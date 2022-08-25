@@ -1,10 +1,18 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ inputValue, handleInputChange, renderSerchedMovies, checked, onChangeCheckBox }) {
+function SearchForm({ inputValue, handleInputChange, renderSerchedMovies, checked, onChangeCheckBox, onLoading }) {
+  function showPreloader() {
+    onLoading(true);
+    setTimeout(async () => {
+      onLoading(false);
+    }, 1000);
+}
+
   const handleSearchRequest = (e) => {
     e.preventDefault();
-    renderSerchedMovies();
+    renderSerchedMovies()
+    showPreloader();
   };
 
   return (
@@ -12,7 +20,7 @@ function SearchForm({ inputValue, handleInputChange, renderSerchedMovies, checke
       <form className='searchform' onSubmit={handleSearchRequest}>
         <div className='searchform__element'>
           <div className='searchform__logo' />
-          <input className='searchform__input'  placeholder='Фильм' value={inputValue} onChange={handleInputChange}/>
+          <input className='searchform__input'  required placeholder='Фильм' value={inputValue} onChange={handleInputChange}/>
           <button className='searchform__button link-hover' type='submit'/>
         </div>
           <FilterCheckbox checked={checked} onChangeCheckBox={onChangeCheckBox} />

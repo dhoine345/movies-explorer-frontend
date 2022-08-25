@@ -1,5 +1,6 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
@@ -11,7 +12,7 @@ import { api } from '../../utils/MainApi';
 function MoviesCardList() {
   const [inputValue, setInputValue] = useState('');
   const [savedMovies, setSavedMovies] = useState([]);
-  const [checked, setChecekd] = useState(false);
+  const [isChecked, setChecekd] = useState(false);
   const [moviesArray, setmoviesArray] = useState([]);
   const [arrayFromStorage, setArrayFromStorage] = useState([]);
   const [arrayToRender, setArrayToRender] = useState([]);
@@ -19,16 +20,17 @@ function MoviesCardList() {
   const [countToAdd, setCountToAdd] = useState();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isAddButton, setIsAddButton] = useState();
+  const [isLoading, setLoading] = useState(false);
   const location = useLocation().pathname;
 
   const handleInputChange = (e) => setInputValue(e.target.value);
 
-  const handleCheckBoxChange = () => !checked ? setChecekd(true) : setChecekd(false);
+  const handleCheckBoxChange = () => !isChecked ? setChecekd(true) : setChecekd(false);
 
   const getSavedMovies = () => {
     api.getFavoriteMovies()
       .then(res => setSavedMovies(res.data))
-  }
+  };
 
   useEffect(() => {
     Promise.all([getAllMovies(), api.getFavoriteMovies()])
@@ -62,13 +64,13 @@ function MoviesCardList() {
     localStorage.setItem('moviesArray', JSON.stringify(moviesArray.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(inputValue)
     }).filter((item) => {
-      return (checked ? (item.duration <= 40) : item)
+      return (isChecked ? (item.duration <= 40) : item)
     })))
   };
 
   const pushToStorage = () => {
     filterArray();
-    localStorage.setItem('isChecked', JSON.stringify(checked));
+    localStorage.setItem('isChecked', JSON.stringify(isChecked));
     localStorage.setItem('inputValue', JSON.stringify(inputValue));
   };
 
@@ -113,10 +115,13 @@ function MoviesCardList() {
         inputValue={inputValue}
         handleInputChange={handleInputChange}
         renderSerchedMovies={searchMovies}
-        checked={checked}
+        checked={isChecked}
         onChangeCheckBox={handleCheckBoxChange}
+        onLoading={setLoading}
       />
-      <section className='moviescardlist'>
+      {isLoading ? <Preloader />
+       :
+       <section className='moviescardlist'>
         {
           arrayToRender.map((moviescard) => {
             return (
@@ -136,7 +141,7 @@ function MoviesCardList() {
         >
           Ещё
         </button>
-      </section>
+      </section>}
       <Footer />
     </>
   )
