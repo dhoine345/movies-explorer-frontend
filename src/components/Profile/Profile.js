@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 import Header from '../Header/Header';
@@ -12,24 +12,35 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
   const [email, setEmail] = useState('');
   const [inputErrorName, setInputErrorName] = useState('');
   const [inputErrorEmail, setInputErrorEmail] = useState('');
+  const [inputNameValidity, setinputNameValidity] = useState(false);
+  const [inputEmailValidity, setinputEmailValidity] = useState(false);
+  const [buttonActive, setButtonActive] = useState(false);
+
+  const validity = inputEmailValidity && inputNameValidity;
+
+  useEffect(() => {
+    validity ? setButtonActive(true) : setButtonActive(false);
+  }, [validity]);
 
   const hadleInputNameChange = (e) => {
-    setName(e.target.value)
+    setName(e.target.value);
     if (e.target.validity.valid) {
-      setInputErrorName('')
+      setinputNameValidity(true);
+      setInputErrorName('');
     } else {
-      setInputErrorName(e.target.validationMessage)
+      setInputErrorName(e.target.validationMessage);
     }
-  }
+  };
 
   const hadleInputEmailChange = (e) => {
-    setEmail(e.target.value)
+    setEmail(e.target.value);
     if (e.target.validity.valid) {
-      setInputErrorEmail('')
+      setinputEmailValidity(true);
+      setInputErrorEmail('');
     } else {
-      setInputErrorEmail(e.target.validationMessage)
+      setInputErrorEmail(e.target.validationMessage);
     }
-  }
+  };
 
   const logOut = () => {
     localStorage.removeItem('jwt');
@@ -40,7 +51,10 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     api.updateProfile(name, email)
-      .then(res => updateUser(res.data))
+      .then((res) => {
+        updateUser(res.data);
+      })
+      .catch(err => console.log(err.name))
   };
 
   return (
@@ -56,17 +70,32 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
             <label className='profile__label' htmlFor='name'>
               <h3 className='profile__input-title'>Имя</h3>
               <span className='profile__input-error'>{inputErrorName}</span>
-              <input className='profile__input' id='name' required minLength='2' maxLength='30' type='text' defaultValue={currentUser.name} onChange={hadleInputNameChange} />
+              <input
+                className='profile__input'
+                id='name' required minLength='2'
+                maxLength='30'
+                type='text'
+                defaultValue={currentUser.name}
+                onChange={hadleInputNameChange}
+              />
             </label>
             <label className='profile__label' htmlFor='email'>
               <h3 className='profile__input-title'>E-mail</h3>
               <span className='profile__input-error'>{inputErrorEmail}</span>
-              <input className='profile__input' id='email' required type='email' defaultValue={currentUser.email} onChange={hadleInputEmailChange} />
+              <input
+                className='profile__input'
+                id='email' required type='email'
+                defaultValue={currentUser.email}
+                onChange={hadleInputEmailChange}
+              />
             </label>
           </fieldset>
           <fieldset className='profile__buttons'>
-            <button className='profile__button link-hover'>Редактировать</button>
-            <button className='profile__button profile__button_exit link-hover' onClick={logOut} >Выйти из аккаунта</button>
+            <button disabled={!buttonActive} className='profile__button link-hover'>Редактировать</button>
+            <button
+              className='profile__button profile__button_exit link-hover'
+              onClick={logOut}
+            >Выйти из аккаунта</button>
           </fieldset>
         </form>
       </section>
