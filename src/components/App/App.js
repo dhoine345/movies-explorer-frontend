@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -16,7 +16,7 @@ import { api } from '../../utils/MainApi';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] =useState({});
-  const history = useNavigate();
+
 
   useEffect(() => {
     checkToken();
@@ -27,7 +27,6 @@ function App() {
     if(localStorage.getItem('jwt')) {
       api.getUserInfo(token)
         .then(res => {
-          console.log('res', res)
           setLoggedIn(true);
           setCurrentUser(res.data)
         })
