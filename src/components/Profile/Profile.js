@@ -46,6 +46,9 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
     localStorage.removeItem('jwt');
     isLoggedIn(false);
     history('/');
+    localStorage.setItem('moviesArray', JSON.stringify([]));
+    localStorage.setItem('isChecked', JSON.stringify(false));
+    localStorage.setItem('inputValue', JSON.stringify(''));
   };
 
   const handleSubmit = (e) => {
