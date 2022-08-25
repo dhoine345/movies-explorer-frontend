@@ -11,8 +11,16 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegist
   const [inputEmailValidity, setinputEmailValidity] = useState(false);
   const [inputPasswordValidity, setinputPasswordValidity] = useState(false);
   const [buttonActive, setButtonActive] = useState(false);
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const location = useLocation();
 
-  const validity = inputNameValidity && inputEmailValidity && inputPasswordValidity;
+  const validity = location === 'signup' ? inputNameValidity && inputEmailValidity && inputPasswordValidity : inputEmailValidity && inputPasswordValidity
+
+  useEffect(() => {
+    changeValidity();
+  }, )
 
   const hadleInputNameChange = (e) => {
     setName(e.target.value)
@@ -51,15 +59,6 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegist
     validity ? setButtonActive(true) : setButtonActive(false)
   }
 
-  useEffect(() => {
-    changeValidity();
-  }, )
-
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const location = useLocation();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     location === 'signup' ? onRegister(email, password, name) : onLogin(email, password);
@@ -82,7 +81,7 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegist
         <label className='form__label' htmlFor='password'>Пароль</label>
         <input className='form__input' id='password' required minLength='8' maxLength='30' type='password' onChange={hadleInputPasswordChange} />
         <span className='form__input-error'>{inputErrorPassword}</span>
-        <button className={`${buttonActive ? 'form__button link-hover' : 'form__button form__button_disabled'}`}>{buttontext}</button>
+        <button type='submit' disabled={!validity} className={`${buttonActive ? 'form__button link-hover' : 'form__button form__button_disabled'}`}>{buttontext}</button>
         <p className='form__text'>{text}<Link className='form__link' to={path}>{linktext}</Link></p>
       </form>
     </>
