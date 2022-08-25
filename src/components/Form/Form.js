@@ -58,7 +58,7 @@ function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegist
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const location = useLocation()
+  const location = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
