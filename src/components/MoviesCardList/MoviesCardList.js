@@ -29,22 +29,13 @@ function MoviesCardList() {
     api.getFavoriteMovies()
       .then(res => setSavedMovies(res.data))
   }
-  
-  /*useEffect(() => {
+
+  useEffect(() => {
     Promise.all([getAllMovies(), api.getFavoriteMovies()])
       .then(([allMovies, savedMovies]) => {
         setmoviesArray(allMovies);
         setSavedMovies(savedMovies.data)
       })
-  }, []);*/
-
-  useEffect(() => {
-    getSavedMovies();
-  }, []);
-
-  useEffect(() => {
-    getAllMovies()
-      .then(res => setmoviesArray(res))
   }, []);
 
   useEffect(() => {
