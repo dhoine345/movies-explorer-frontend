@@ -105,7 +105,6 @@ function Movies() {
       <section className='movies'>
         <MoviesCardList
           data={arrayToRender}
-          isSavedMovies={false}
           handlerAddButton={handleAddButton}
           isAddButton={isAddButton}
         />
