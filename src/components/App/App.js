@@ -10,28 +10,23 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { api } from '../../utils/MainApi';
+import { getFromMoviesApi, getSavedMovies, checkToken } from '../../utils/utils';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] =useState({});
 
+  useEffect(() => {
+    if (loggedIn) {
+      getFromMoviesApi();
+      getSavedMovies();
+    }
+  }, [loggedIn]);
+
 
   useEffect(() => {
-    checkToken();
+    checkToken(setLoggedIn, setCurrentUser);
   },[loggedIn]);
-
-  const checkToken = () => {
-    let token = localStorage.getItem('jwt');
-    if(localStorage.getItem('jwt')) {
-      api.getUserInfo(token)
-        .then(res => {
-          setLoggedIn(true);
-          setCurrentUser(res.data)
-        })
-        .catch(err => console.log(err.message));
-    }
-  }
 
   return (
     <div className="page">
