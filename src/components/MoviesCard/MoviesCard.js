@@ -15,9 +15,9 @@ function MoviesCard({ moviescard, savedMovies, id, setSavedMovies, setButtonClic
     } else if (!isSavedStatus) {
       setStyleOfButton('moviescard__favorites')
     } else if (isSavedStatus) {
-    setStyleOfButton('moviescard__favorites moviescard__favorites_active')
+      setStyleOfButton('moviescard__favorites moviescard__favorites_active')
     }
-  }, [location, isSavedStatus])
+  }, [location, isSavedStatus]);
 
 
   const getDurationFromMins = (duration) => {
@@ -51,40 +51,36 @@ function MoviesCard({ moviescard, savedMovies, id, setSavedMovies, setButtonClic
         localStorage.setItem('savedMovies', JSON.stringify([...savedMovies, res.data]));
       })
       .then(() => setSavedStatus(true))
-  }
+  };
 
-  const handleClick = () => {
-    isSavedStatus ? removeFromSaved() : putToFavorites();
-  }
+  const handleClick = () => isSavedStatus ? removeFromSaved() : putToFavorites();
 
-  const findMovieInStorage = async () => {
-    return savedMovies.find((movie) => {
-      return movie.movieId === moviescard.id
+  const removeMovie = (item, arr) => {
+    Promise.resolve(arr.splice(arr.indexOf(arr.find((movie) => movie.movieId === item.data.movieId)), 1))
+    .then(() => {
+      setSavedMovies(arr);
+      localStorage.setItem('savedMovies', JSON.stringify(arr));
+    })
+    .then(() => {
+      setSavedStatus(false);
+      location === '/saved-movies' && setButtonClicked(moviescard);
     })
   }
 
   const test = () => {
     console.log('SavedStatus', isSavedStatus);
     console.log('savedMovies', savedMovies);
-    console.log('moviescard', moviescard.id);
+    console.log('moviescard', moviescard);
   }
 
   const removeFromSaved = () => {
     const arr = savedMovies;
-    //location === '/saved-movies' ?
+    location === '/saved-movies' ?
     api.removeMovie(moviescard._id)
-      .then((deletedMovie) => arr.splice(arr.indexOf(arr.find((movie) => movie.movieId === deletedMovie.data.movieId)), 1))
-      .then(() => {
-        setSavedMovies(arr);
-        localStorage.setItem('savedMovies', JSON.stringify(arr));
-      })
-      .then(() => {
-        setSavedStatus(false);
-        setButtonClicked(moviescard);
-      })
-    /*: findMovieInStorage()
-    .then((moviescard) => api.removeMovie(moviescard._id))
-      .then(() => setSavedStatus(false))*/
+      .then((deletedMovie) => removeMovie(deletedMovie, arr))
+    : Promise.resolve(savedMovies.find((movie) => movie.movieId === moviescard.id)._id)
+    .then((id) => api.removeMovie(id))
+    .then((deletedMovie) => removeMovie(deletedMovie, arr))
   }
 
   return (

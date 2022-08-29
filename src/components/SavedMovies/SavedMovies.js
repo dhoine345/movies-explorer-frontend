@@ -7,6 +7,7 @@ import Header from '../Header/Header';
 function SavedMovies() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [isButtonClicked, setButtonClicked] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
