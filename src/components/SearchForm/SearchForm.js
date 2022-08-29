@@ -1,7 +1,12 @@
 import './SearchForm.css';
+import { useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import { fiterArray } from '../../utils/utils';
 
-function SearchForm({ inputValue, setInputValue, renderSerchedMovies, checked, onChangeCheckBox, onLoading }) {
+function SearchForm({ renderSerchedMovies, onLoading, searchedMovies, allMovies }) {
+  const [inputValue, setInputValue] = useState('');
+  const [isChecked, setChecekd] = useState(false);
+
   function showPreloader() {
     onLoading(true);
     setTimeout(async () => {
@@ -11,10 +16,14 @@ function SearchForm({ inputValue, setInputValue, renderSerchedMovies, checked, o
 
   const handleInputChange = (e) => setInputValue(e.target.value);
 
+  const handleCheckBoxChange = () => !isChecked ? setChecekd(true) : setChecekd(false);
+
   const handleSearchRequest = (e) => {
     e.preventDefault();
-    renderSerchedMovies()
+    //renderSerchedMovies()
     showPreloader();
+    fiterArray(allMovies, inputValue, isChecked)
+      .then(res => localStorage.setItem('serchedMovies', JSON.stringify(res)))
   };
 
   return (
@@ -25,7 +34,7 @@ function SearchForm({ inputValue, setInputValue, renderSerchedMovies, checked, o
           <input className='searchform__input'  required placeholder='Фильм' value={inputValue} onChange={handleInputChange}/>
           <button className='searchform__button link-hover' type='submit'/>
         </div>
-          <FilterCheckbox checked={checked} onChangeCheckBox={onChangeCheckBox} />
+          <FilterCheckbox checked={isChecked} onChangeCheckBox={handleCheckBoxChange} />
       </form>
     </div>
   )

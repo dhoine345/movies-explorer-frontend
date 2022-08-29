@@ -3,52 +3,52 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-import Header from '../Header/Header';
-import SearchForm from '../SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
-import { getAllMovies } from '../../utils/MoviesApi';
-import { api } from '../../utils/MainApi';
+import { getFromMoviesApi, getSavedMovies } from '../../utils/utils';
 
-function MoviesCardList() {
+function MoviesCardList({ searchedMovies, isLoading, savedMovies, setSavedMovies, setButtonClicked }) {
   const [inputValue, setInputValue] = useState('');
-  const [savedMovies, setSavedMovies] = useState([]);
+  //const [savedMovies, setSavedMovies] = useState([]);
   const [isChecked, setChecekd] = useState(false);
-  const [moviesArray, setmoviesArray] = useState([]);
+  const [allMoviesArray, setAllMoviesArray] = useState([]);
   const [arrayFromStorage, setArrayFromStorage] = useState([]);
   const [arrayToRender, setArrayToRender] = useState([]);
   const [lengthOfArray, setlengthOfArray] = useState();
   const [countToAdd, setCountToAdd] = useState();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isAddButton, setIsAddButton] = useState();
-  const [isLoading, setLoading] = useState(false);
+  //const [isLoading, setLoading] = useState(false);
   const location = useLocation().pathname;
 
-  const handleCheckBoxChange = () => !isChecked ? setChecekd(true) : setChecekd(false);
-
-  const getSavedMovies = () => {
+  /*const getSavedMovies = () => {
     api.getFavoriteMovies()
       .then(res => setSavedMovies(res.data))
-  };
+  };*/
 
-  useEffect(() => {
-    Promise.all([getAllMovies(), api.getFavoriteMovies()])
+  /*useEffect(() => {
+    Promise.all([getFromMoviesApi(), getSavedMovies()])
       .then(([allMovies, savedMovies]) => {
-        setmoviesArray(allMovies);
+        setAllMoviesArray(allMovies);
         setSavedMovies(savedMovies.data)
       })
-  }, []);
+  }, []);*/
+
+  /*useEffect(() => {
+    getFromMoviesApi(setAllMoviesArray);
+    getSavedMovies(setSavedMovies);
+  }, [])*/
 
   useEffect(() => {
     getInfoFromStorage();
   }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     setArrayToRender((location === '/movies' ? arrayFromStorage : savedMovies).slice(0, lengthOfArray))
   }, [arrayFromStorage, lengthOfArray, savedMovies, location]);
 
   useEffect(() => {
     arrayToRender.length === (location === '/movies' ? arrayFromStorage : savedMovies).length ? setIsAddButton(false) : setIsAddButton(true)
-  }, [arrayToRender, arrayFromStorage, savedMovies, location]);
+  }, [arrayToRender, arrayFromStorage, savedMovies, location]);*/
 
   useEffect(() => (
     setNumberOfMovies(windowWidth)
@@ -59,7 +59,7 @@ function MoviesCardList() {
   },);
 
   const filterArray = () => {
-    localStorage.setItem('moviesArray', JSON.stringify(moviesArray.filter((movie) => {
+    localStorage.setItem('moviesArray', JSON.stringify(allMoviesArray.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(inputValue)
     }).filter((item) => {
       return (isChecked ? (item.duration <= 40) : item)
@@ -99,47 +99,56 @@ function MoviesCardList() {
 
   const handleAddButton = () => setlengthOfArray(lengthOfArray + countToAdd);
 
-
-  const test1 = () => {
-    console.log('из хранилища', arrayFromStorage)
-    console.log('первые 15', arrayToRender)
-  }
-
   return (
     <>
-      <Header loggedIn={true} isWhiteBack={true}/>
-      <button style={{width: 60, height: 60}} onClick={test1}>Данные из хранилища</button>
-      <SearchForm
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        renderSerchedMovies={searchMovies}
-        checked={isChecked}
-        onChangeCheckBox={handleCheckBoxChange}
-        onLoading={setLoading}
-      />
-      {isLoading ? <Preloader />
-       :
-       <section className='moviescardlist'>
-        {
-          arrayToRender.map((moviescard) => {
-            return (
-              <MoviesCard
-                moviescard={moviescard}
-                key={location === '/saved-movies' ? moviescard.movieId : moviescard.id}
-                renderSavedMovies={getSavedMovies}
-                savedMovies={savedMovies}
-                id={moviescard.movieId || moviescard.id}
-              />
-            )
-          })
-        }
-        <button
-          className={`moviescardlist__button link-hover ${!isAddButton && 'moviescardlist__button_disabled'}`}
-          onClick={handleAddButton}
-        >
-          Ещё
-        </button>
-      </section>}
+      {
+        location === '/movies' ? isLoading ? <Preloader />
+        :
+        <section className='moviescardlist'>
+         {searchedMovies &&
+           searchedMovies.map((moviescard) => {
+             return (
+               <MoviesCard
+                 moviescard={moviescard}
+                 key={location === '/saved-movies' ? moviescard.movieId : moviescard.id}
+                 setSavedMovies={setSavedMovies}
+                 savedMovies={savedMovies}
+                 id={moviescard.id}
+               />
+             )
+           })
+         }
+         <button
+           className={`moviescardlist__button link-hover ${!isAddButton && 'moviescardlist__button_disabled'}`}
+           onClick={handleAddButton}
+         >
+           Ещё
+         </button>
+       </section>
+       : <section className='moviescardlist'>
+       {savedMovies &&
+         savedMovies.map((moviescard) => {
+           return (
+             <MoviesCard
+               moviescard={moviescard}
+               key={location === '/saved-movies' ? moviescard.movieId : moviescard.id}
+               setSavedMovies={setSavedMovies}
+               id={moviescard.movieId}
+               savedMovies={savedMovies}
+               setButtonClicked={setButtonClicked}
+             />
+           )
+         })
+       }
+       <button
+         className={`moviescardlist__button link-hover ${!isAddButton && 'moviescardlist__button_disabled'}`}
+         onClick={handleAddButton}
+       >
+         Ещё
+       </button>
+     </section>
+      }
+
       <Footer />
     </>
   )

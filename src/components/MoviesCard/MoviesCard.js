@@ -4,7 +4,7 @@ import { baseUrl } from '../../utils/constants';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCard({ moviescard, renderSavedMovies, savedMovies, id }) {
+function MoviesCard({ moviescard, savedMovies, id, setSavedMovies, setButtonClicked }) {
   const [isSavedStatus, setSavedStatus] = useState(false);
   const [styleOfButton, setStyleOfButton] = useState('');
   const location = useLocation().pathname;
@@ -30,7 +30,7 @@ function MoviesCard({ moviescard, renderSavedMovies, savedMovies, id }) {
     setSavedStatus(savedMovies.some((movie) => {
       return movie.movieId === id
     }))
-  }, [savedMovies, id])
+  }, [savedMovies, id, location]);
 
   const putToFavorites = () => {
     api.addMovie({
@@ -46,30 +46,45 @@ function MoviesCard({ moviescard, renderSavedMovies, savedMovies, id }) {
       year: moviescard.year,
       thumbnail: baseUrl + moviescard.image.formats.thumbnail.url
     })
-      .then(() => renderSavedMovies())
+      .then((res) => {
+        setSavedMovies([...savedMovies, res.data])
+        localStorage.setItem('savedMovies', JSON.stringify([...savedMovies, res.data]));
+      })
+      .then(() => setSavedStatus(true))
   }
 
   const handleClick = () => {
-    isSavedStatus ? removeFromFavorites() : putToFavorites();
+    isSavedStatus ? removeFromSaved() : putToFavorites();
   }
 
-  const findMovieId = async () => {
+  const findMovieInStorage = async () => {
     return savedMovies.find((movie) => {
       return movie.movieId === moviescard.id
     })
   }
 
   const test = () => {
-    console.log(moviescard)
+    console.log('SavedStatus', isSavedStatus);
+    console.log('savedMovies', savedMovies);
+    console.log('moviescard', moviescard.id);
   }
 
-  const removeFromFavorites = () => {
-    location === '/saved-movies' ?
+  const removeFromSaved = () => {
+    const arr = savedMovies;
+    //location === '/saved-movies' ?
     api.removeMovie(moviescard._id)
-      .then(() => renderSavedMovies())
-    : findMovieId()
+      .then((deletedMovie) => arr.splice(arr.indexOf(arr.find((movie) => movie.movieId === deletedMovie.data.movieId)), 1))
+      .then(() => {
+        setSavedMovies(arr);
+        localStorage.setItem('savedMovies', JSON.stringify(arr));
+      })
+      .then(() => {
+        setSavedStatus(false);
+        setButtonClicked(moviescard);
+      })
+    /*: findMovieInStorage()
     .then((moviescard) => api.removeMovie(moviescard._id))
-      .then(() => renderSavedMovies())
+      .then(() => setSavedStatus(false))*/
   }
 
   return (
