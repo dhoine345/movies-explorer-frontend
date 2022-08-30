@@ -34,7 +34,7 @@ function SearchForm({ onLoading, allMovies, savedMovies, setserchedSavedMovies, 
         location === '/movies' ? localStorage.setItem('serchedMovies', JSON.stringify([]))
         : setserchedSavedMovies([])
       }
-        )
+      )
   };
 
   return (
