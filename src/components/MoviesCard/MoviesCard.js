@@ -4,7 +4,14 @@ import { baseUrl } from '../../utils/constants';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCard({ moviescard, savedMovies, id, setSavedMovies, setButtonClicked }) {
+function MoviesCard({ moviescard,
+  savedMovies,
+  id,
+  setSavedMovies,
+  serchedSavedMovies,
+  updateArrayOfMovies,
+  updateArray
+}) {
   const [isSavedStatus, setSavedStatus] = useState(false);
   const [styleOfButton, setStyleOfButton] = useState('');
   const location = useLocation().pathname;
@@ -32,7 +39,7 @@ function MoviesCard({ moviescard, savedMovies, id, setSavedMovies, setButtonClic
     }))
   }, [savedMovies, id, location]);
 
-  const putToFavorites = () => {
+  const pushToSaved = () => {
     api.addMovie({
       country: moviescard.country || 'none',
       description: moviescard.description,
@@ -53,34 +60,45 @@ function MoviesCard({ moviescard, savedMovies, id, setSavedMovies, setButtonClic
       .then(() => setSavedStatus(true))
   };
 
-  const handleClick = () => isSavedStatus ? removeFromSaved() : putToFavorites();
+  const handleClick = () => isSavedStatus ? removeFromSaved() : pushToSaved();
 
-  const removeMovie = (item, arr) => {
-    Promise.resolve(arr.splice(arr.indexOf(arr.find((movie) => movie.movieId === item.data.movieId)), 1))
+  const spliceArr = async (arr, item) => {
+    if (!arr) {
+      return
+    }
+    return arr.splice(arr.indexOf(arr.find((movie) => movie.movieId === item.data.movieId)), 1)
+  }
+
+  const removeMovie = (item) => {
+    const savedArr = savedMovies;
+    const searchedArr = serchedSavedMovies;
+    spliceArr(savedArr, item)
+    spliceArr(searchedArr, item)
     .then(() => {
-      setSavedMovies(arr);
-      localStorage.setItem('savedMovies', JSON.stringify(arr));
+      setSavedMovies(savedArr);
+      localStorage.setItem('savedMovies', JSON.stringify(savedArr));
+      //updateArrayOfMovies(searchedArr);
+      updateArray(searchedArr);
     })
     .then(() => {
       setSavedStatus(false);
-      location === '/saved-movies' && setButtonClicked(moviescard);
     })
+  }
+
+  const removeFromSaved = () => {
+    location === '/saved-movies' ?
+    api.removeMovie(moviescard._id)
+      .then((deletedMovie) => removeMovie(deletedMovie))
+    : Promise.resolve(savedMovies.find((movie) => movie.movieId === moviescard.id)._id)
+    .then((id) => api.removeMovie(id))
+    .then((deletedMovie) => removeMovie(deletedMovie))
   }
 
   const test = () => {
     console.log('SavedStatus', isSavedStatus);
     console.log('savedMovies', savedMovies);
     console.log('moviescard', moviescard);
-  }
-
-  const removeFromSaved = () => {
-    const arr = savedMovies;
-    location === '/saved-movies' ?
-    api.removeMovie(moviescard._id)
-      .then((deletedMovie) => removeMovie(deletedMovie, arr))
-    : Promise.resolve(savedMovies.find((movie) => movie.movieId === moviescard.id)._id)
-    .then((id) => api.removeMovie(id))
-    .then((deletedMovie) => removeMovie(deletedMovie, arr))
+    console.log('serchedSavedMovies', serchedSavedMovies);
   }
 
   return (
@@ -91,8 +109,7 @@ function MoviesCard({ moviescard, savedMovies, id, setSavedMovies, setButtonClic
           <p className='moviescard__duration'>{getDurationFromMins(moviescard.duration)}</p>
         </div>
         <button
-          className={`${styleOfButton}
-          link-hover`}
+          className={`${styleOfButton} link-hover`}
           onClick={handleClick}
         />
       </div>

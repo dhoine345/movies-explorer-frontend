@@ -3,7 +3,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useEffect, useState } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import Header from '../Header/Header';
-import { getInfoFromStorage } from '../../utils/utils';
+import Footer from '../Footer/Footer';
 
 function Movies() {
   const [searchedMovies, setSearchedMovies] = useState([]);
@@ -15,6 +15,11 @@ function Movies() {
     setAllMovies(JSON.parse(localStorage.getItem('allMoviesArray')));
     setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
   }, []);
+
+  const updateArrayOfMovies = () => {
+    setAllMovies(JSON.parse(localStorage.getItem('allMoviesArray')));
+    setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
+  };
 
   useEffect(() => {
     setSearchedMovies(JSON.parse(localStorage.getItem('serchedMovies')));
@@ -31,13 +36,7 @@ function Movies() {
       <Header loggedIn={true} isWhiteBack={true}/>
       <button style={{width: 60, height: 60}} onClick={test1}>Данные из хранилища</button>
       <SearchForm
-        /*inputValue={inputValue}
-        setInputValue={setInputValue}
-        renderSerchedMovies={searchMovies}
-        checked={isChecked}
-        setChecekd={setChecekd}*/
         onLoading={setLoading}
-        searchedMovies={searchedMovies}
         allMovies={allMovies}
       />
       <section className='movies'>
@@ -46,8 +45,10 @@ function Movies() {
           isLoading={isLoading}
           savedMovies={savedMovies}
           setSavedMovies={setSavedMovies}
+          updateArrayOfMovies={updateArrayOfMovies}
         />
       </section>
+      <Footer />
     </>
   )
 }

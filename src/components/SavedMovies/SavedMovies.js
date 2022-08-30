@@ -3,19 +3,30 @@ import { useEffect, useState } from 'react';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 function SavedMovies() {
   const [savedMovies, setSavedMovies] = useState([]);
-  const [isButtonClicked, setButtonClicked] = useState('');
   const [isLoading, setLoading] = useState(false);
+  const [serchedSavedMovies, setserchedSavedMovies] = useState([]);
+  const [arrayOfSavedMovies, setArrayOfMovies] = useState([]);
 
   useEffect(() => {
     setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
-  }, [isButtonClicked]);
+  }, []);
+
+  useEffect(() => {
+    setArrayOfMovies(serchedSavedMovies.length > 0 ? serchedSavedMovies : savedMovies)
+  }, [serchedSavedMovies, savedMovies]);
+
+  const updateArrayOfSavedMovies = (newArr) =>{
+    setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
+    setserchedSavedMovies(newArr);
+  };
 
   const test1 = () => {
     console.log('из хранилища', savedMovies)
-    console.log('найденные', )
+    console.log('найденные', serchedSavedMovies)
   }
 
   return (
@@ -23,22 +34,22 @@ function SavedMovies() {
     <Header loggedIn={true} isWhiteBack={true}/>
     <button style={{width: 60, height: 60}} onClick={test1}>Данные из хранилища</button>
     <SearchForm
-        /*inputValue={inputValue}
-        setInputValue={setInputValue}
-        renderSerchedMovies={searchMovies}
-        checked={isChecked}
-        setChecekd={setChecekd}*/
-        //onLoading={setLoading}
-        //searchedMovies={searchedMovies}
+        onLoading={setLoading}
         savedMovies={savedMovies}
+        setserchedSavedMovies={setserchedSavedMovies}
       />
     <section className='movies'>
       <MoviesCardList
         savedMovies={savedMovies}
+        arrayOfSavedMovies={arrayOfSavedMovies}
         setSavedMovies={setSavedMovies}
-        setButtonClicked={setButtonClicked}
+        isLoading={isLoading}
+        setserchedSavedMovies={setserchedSavedMovies}
+        serchedSavedMovies={serchedSavedMovies}
+        updateArrayOfMovies={updateArrayOfSavedMovies}
       />
     </section>
+    <Footer />
   </>
   )
 }

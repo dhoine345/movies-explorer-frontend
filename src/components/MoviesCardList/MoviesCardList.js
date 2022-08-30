@@ -3,52 +3,32 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-import Footer from '../Footer/Footer';
-import { getFromMoviesApi, getSavedMovies } from '../../utils/utils';
 
-function MoviesCardList({ searchedMovies, isLoading, savedMovies, setSavedMovies, setButtonClicked }) {
-  const [inputValue, setInputValue] = useState('');
-  //const [savedMovies, setSavedMovies] = useState([]);
-  const [isChecked, setChecekd] = useState(false);
-  const [allMoviesArray, setAllMoviesArray] = useState([]);
-  const [arrayFromStorage, setArrayFromStorage] = useState([]);
+function MoviesCardList({
+  searchedMovies,
+  isLoading,
+  savedMovies,
+  setSavedMovies,
+  arrayOfSavedMovies,
+  setSerchedSavedMovies,
+  serchedSavedMovies,
+  updateArrayOfMovies }) {
   const [arrayToRender, setArrayToRender] = useState([]);
   const [lengthOfArray, setlengthOfArray] = useState();
   const [countToAdd, setCountToAdd] = useState();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isAddButton, setIsAddButton] = useState();
-  //const [isLoading, setLoading] = useState(false);
   const location = useLocation().pathname;
 
-  /*const getSavedMovies = () => {
-    api.getFavoriteMovies()
-      .then(res => setSavedMovies(res.data))
-  };*/
-
-  /*useEffect(() => {
-    Promise.all([getFromMoviesApi(), getSavedMovies()])
-      .then(([allMovies, savedMovies]) => {
-        setAllMoviesArray(allMovies);
-        setSavedMovies(savedMovies.data)
-      })
-  }, []);*/
-
-  /*useEffect(() => {
-    getFromMoviesApi(setAllMoviesArray);
-    getSavedMovies(setSavedMovies);
-  }, [])*/
+  useEffect(() => {
+    setArrayToRender((location === '/movies' ? searchedMovies : arrayOfSavedMovies).slice(0, lengthOfArray))
+  }, [searchedMovies, lengthOfArray, arrayOfSavedMovies, location]);
 
   useEffect(() => {
-    getInfoFromStorage();
-  }, []);
+    arrayToRender.length === (location === '/movies' ? searchedMovies : arrayOfSavedMovies).length ? setIsAddButton(false) : setIsAddButton(true)
+  }, [arrayToRender, searchedMovies, arrayOfSavedMovies, location]);
 
-  /*useEffect(() => {
-    setArrayToRender((location === '/movies' ? arrayFromStorage : savedMovies).slice(0, lengthOfArray))
-  }, [arrayFromStorage, lengthOfArray, savedMovies, location]);
-
-  useEffect(() => {
-    arrayToRender.length === (location === '/movies' ? arrayFromStorage : savedMovies).length ? setIsAddButton(false) : setIsAddButton(true)
-  }, [arrayToRender, arrayFromStorage, savedMovies, location]);*/
+  const updateArray = (newArr) => setArrayToRender((location === '/movies' ? searchedMovies : arrayOfSavedMovies).slice(0, lengthOfArray));
 
   useEffect(() => (
     setNumberOfMovies(windowWidth)
@@ -57,32 +37,6 @@ function MoviesCardList({ searchedMovies, isLoading, savedMovies, setSavedMovies
   useEffect(() => {
     window.addEventListener('resize', () => setWindowWidth(window.innerWidth))
   },);
-
-  const filterArray = () => {
-    localStorage.setItem('moviesArray', JSON.stringify(allMoviesArray.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(inputValue)
-    }).filter((item) => {
-      return (isChecked ? (item.duration <= 40) : item)
-    })))
-  };
-
-  const pushToStorage = () => {
-    filterArray();
-    localStorage.setItem('isChecked', JSON.stringify(isChecked));
-    localStorage.setItem('inputValue', JSON.stringify(inputValue));
-  };
-
-  const getInfoFromStorage = () => {
-    setArrayFromStorage(JSON.parse(localStorage.getItem('moviesArray')));
-    setChecekd(JSON.parse(localStorage.getItem('isChecked')));
-    setInputValue(JSON.parse(localStorage.getItem('inputValue')));
-  };
-
-  const searchMovies = () => {
-    pushToStorage();
-    getInfoFromStorage();
-    setInputValue('');
-  };
 
   const setNumberOfMovies = (width) => {
     if (width > 950) {
@@ -102,18 +56,22 @@ function MoviesCardList({ searchedMovies, isLoading, savedMovies, setSavedMovies
   return (
     <>
       {
-        location === '/movies' ? isLoading ? <Preloader />
+        isLoading ? <Preloader />
         :
         <section className='moviescardlist'>
-         {searchedMovies &&
-           searchedMovies.map((moviescard) => {
+         {
+           arrayToRender.map((moviescard) => {
              return (
                <MoviesCard
                  moviescard={moviescard}
-                 key={location === '/saved-movies' ? moviescard.movieId : moviescard.id}
+                 key={moviescard.movieId || moviescard.id}
                  setSavedMovies={setSavedMovies}
                  savedMovies={savedMovies}
-                 id={moviescard.id}
+                 id={moviescard.movieId || moviescard.id}
+                 setSerchedSavedMovies={setSerchedSavedMovies}
+                 serchedSavedMovies={location === '/movies' ? '' : serchedSavedMovies}
+                 updateArrayOfMovies={updateArrayOfMovies}
+                 updateArray={updateArray}
                />
              )
            })
@@ -125,31 +83,7 @@ function MoviesCardList({ searchedMovies, isLoading, savedMovies, setSavedMovies
            Ещё
          </button>
        </section>
-       : <section className='moviescardlist'>
-       {savedMovies &&
-         savedMovies.map((moviescard) => {
-           return (
-             <MoviesCard
-               moviescard={moviescard}
-               key={location === '/saved-movies' ? moviescard.movieId : moviescard.id}
-               setSavedMovies={setSavedMovies}
-               id={moviescard.movieId}
-               savedMovies={savedMovies}
-               setButtonClicked={setButtonClicked}
-             />
-           )
-         })
-       }
-       <button
-         className={`moviescardlist__button link-hover ${!isAddButton && 'moviescardlist__button_disabled'}`}
-         onClick={handleAddButton}
-       >
-         Ещё
-       </button>
-     </section>
       }
-
-      <Footer />
     </>
   )
 }

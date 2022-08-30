@@ -2,10 +2,12 @@ import './SearchForm.css';
 import { useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { fiterArray } from '../../utils/utils';
+import { useLocation } from 'react-router-dom';
 
-function SearchForm({ renderSerchedMovies, onLoading, searchedMovies, allMovies }) {
+function SearchForm({ onLoading, allMovies, savedMovies, setserchedSavedMovies }) {
   const [inputValue, setInputValue] = useState('');
   const [isChecked, setChecekd] = useState(false);
+  const location = useLocation().pathname;
 
   function showPreloader() {
     onLoading(true);
@@ -20,10 +22,13 @@ function SearchForm({ renderSerchedMovies, onLoading, searchedMovies, allMovies 
 
   const handleSearchRequest = (e) => {
     e.preventDefault();
-    //renderSerchedMovies()
     showPreloader();
-    fiterArray(allMovies, inputValue, isChecked)
-      .then(res => localStorage.setItem('serchedMovies', JSON.stringify(res)))
+    fiterArray(allMovies || savedMovies, inputValue, isChecked)
+      .then(res => {
+        location === '/movies' ? localStorage.setItem('serchedMovies', JSON.stringify(res))
+        : setserchedSavedMovies(res)
+      })
+      .catch(() => console.log('ooo'))
   };
 
   return (
