@@ -11,16 +11,21 @@ export const checkToken = (setLoggedIn, setCurrentUser) => {
       })
       .catch(err => console.log(err.message));
   }
-}
+};
 
 export const getFromMoviesApi = () => {
   getAllMovies()
     .then(res => addToStorage(res, 'allMoviesArray'));
 };
 
-export const getSavedMovies = () => {
+export const getSavedMovies = (currentUser) => {
   api.getFavoriteMovies()
-    .then(res => addToStorage(res.data, 'savedMovies'));
+    .then(res => {
+      const savedMovies = res.data.filter(
+        (movie) => movie.owner === currentUser._id
+      );
+      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+    });
 };
 
 export const addToStorage = (itemToAdd, nameInStorage) => {
