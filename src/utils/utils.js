@@ -31,11 +31,18 @@ export const addToStorage = (itemToAdd, nameInStorage) => {
   JSON.parse(localStorage.getItem(nameInStorage));
 };*/
 
-export const fiterArray = async (array, itemToSearch, checBoxStatus) => {
-  return array.filter((movie) => {
-    return movie.nameRU.toLowerCase().includes(itemToSearch)
-  }).filter((item) => {
-    return (checBoxStatus ? (item.duration <= 40) : item)
+export const fiterArray = (array, itemToSearch, checBoxStatus) => {
+  return new Promise((resolve, reject) => {
+    const result = array.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(itemToSearch)
+    }).filter((item) => {
+      return (checBoxStatus ? (item.duration <= 40) : item)
+    })
+    if (result.length > 0) {
+      resolve(result)
+    } else {
+      reject(new Error(result))
+    }
   })
 };
 

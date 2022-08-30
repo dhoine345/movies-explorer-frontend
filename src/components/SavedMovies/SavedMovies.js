@@ -10,6 +10,7 @@ function SavedMovies() {
   const [isLoading, setLoading] = useState(false);
   const [serchedSavedMovies, setserchedSavedMovies] = useState([]);
   const [arrayOfSavedMovies, setArrayOfMovies] = useState([]);
+  const [isSucces, setSuccess] = useState(true);
 
   useEffect(() => {
     setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
@@ -37,6 +38,7 @@ function SavedMovies() {
         onLoading={setLoading}
         savedMovies={savedMovies}
         setserchedSavedMovies={setserchedSavedMovies}
+        setSuccess={setSuccess}
       />
     <section className='movies'>
       <MoviesCardList
@@ -47,6 +49,7 @@ function SavedMovies() {
         setserchedSavedMovies={setserchedSavedMovies}
         serchedSavedMovies={serchedSavedMovies}
         updateArrayOfMovies={updateArrayOfSavedMovies}
+        isSucces={isSucces}
       />
     </section>
     <Footer />

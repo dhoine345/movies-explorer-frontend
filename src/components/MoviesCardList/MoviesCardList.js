@@ -12,7 +12,9 @@ function MoviesCardList({
   arrayOfSavedMovies,
   setSerchedSavedMovies,
   serchedSavedMovies,
-  updateArrayOfMovies }) {
+  updateArrayOfMovies,
+  isSucces
+ }) {
   const [arrayToRender, setArrayToRender] = useState([]);
   const [lengthOfArray, setlengthOfArray] = useState();
   const [countToAdd, setCountToAdd] = useState();
@@ -59,7 +61,7 @@ function MoviesCardList({
         isLoading ? <Preloader />
         :
         <section className='moviescardlist'>
-         {
+         { isSucces ?
            arrayToRender.map((moviescard) => {
              return (
                <MoviesCard
@@ -75,6 +77,7 @@ function MoviesCardList({
                />
              )
            })
+           : <p className='moviescardlist__not-found'>Ничего не найденно</p>
          }
          <button
            className={`moviescardlist__button link-hover ${!isAddButton && 'moviescardlist__button_disabled'}`}
