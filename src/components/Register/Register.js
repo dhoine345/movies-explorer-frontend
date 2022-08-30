@@ -7,6 +7,7 @@ import { useState } from 'react';
 function Register({ isLoggedIn }) {
   const history = useNavigate();
   const [isError, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleRegister = (email, password, name) => {
     api.register( email, password, name)
@@ -17,7 +18,15 @@ function Register({ isLoggedIn }) {
             history('/movies');
           })
       })
-      .catch(() => setError(true))
+      .catch((err) => {
+        if (err.includes('409')) {
+          setErrorMessage('Указанный email уже занят')
+        } else {
+          setErrorMessage('Неверный формат E-mail')
+        }
+        setError(true)
+      }
+ )
   };
 
   return (
@@ -30,6 +39,7 @@ function Register({ isLoggedIn }) {
       greeting='Добро пожаловать!'
       onRegister={handleRegister}
       isError={isError}
+      errorMessage={errorMessage}
     />
   )
 }

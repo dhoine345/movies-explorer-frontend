@@ -7,6 +7,7 @@ import { useState } from 'react';
 function Login({ isLoggedIn }) {
   const history = useNavigate();
   const [isError, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = (email, password) => {
     api.login(email, password)
@@ -17,7 +18,10 @@ function Login({ isLoggedIn }) {
           localStorage.setItem('jwt', res.token);
         }
       })
-      .catch(() => setError(true))
+      .catch(() => {
+        setErrorMessage('Неверные имя пользователя или пароль')
+        setError(true)
+      })
   };
 
   return (
@@ -30,6 +34,7 @@ function Login({ isLoggedIn }) {
       greeting='Рады видеть!'
       onLogin={handleLogin}
       isError={isError}
+      errorMessage={errorMessage}
     />
   )
 }
