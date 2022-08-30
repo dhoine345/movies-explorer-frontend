@@ -19,9 +19,9 @@ function App() {
   useEffect(() => {
     if (loggedIn) {
       getFromMoviesApi();
-      getSavedMovies();
+      getSavedMovies(currentUser);
     }
-  }, [loggedIn]);
+  }, [loggedIn, currentUser]);
 
 
   useEffect(() => {

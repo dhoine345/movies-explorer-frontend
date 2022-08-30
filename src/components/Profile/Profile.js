@@ -46,10 +46,11 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
     localStorage.removeItem('jwt');
     isLoggedIn(false);
     history('/');
-    localStorage.setItem('savedMovies', JSON.stringify([]));
-    localStorage.setItem('serchedMovies', JSON.stringify([]));
-    localStorage.setItem('isChecked', JSON.stringify(false));
-    localStorage.setItem('inputValue', JSON.stringify(''));
+    localStorage.removeItem('savedMovies');
+    localStorage.removeItem('serchedMovies');
+    localStorage.removeItem('isChecked');
+    localStorage.removeItem('inputValue');
+    updateUser({});
   };
 
   const handleSubmit = (e) => {

@@ -23,7 +23,7 @@ function Movies() {
   };
 
   useEffect(() => {
-    setSearchedMovies(JSON.parse(localStorage.getItem('serchedMovies')));
+    setSearchedMovies(JSON.parse(localStorage.getItem('serchedMovies')) || []);
   }, [isLoading]);
 
   const test1 = () => {

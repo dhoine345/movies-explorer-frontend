@@ -16,6 +16,7 @@ function Login({ isLoggedIn }) {
           isLoggedIn(true);
           history('/movies');
           localStorage.setItem('jwt', res.token);
+          localStorage.setItem('savedMovies', JSON.stringify([]))
         }
       })
       .catch(() => {
