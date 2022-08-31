@@ -32,13 +32,50 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route path='/' element={<Main loggedIn={loggedIn} />} />
-          <Route path="/signup" element={<Register isLoggedIn={setLoggedIn} />} />
-          <Route path="/signin" element={<Login isLoggedIn={setLoggedIn} />} />
-          <Route path='*' element={<PageNotFound />} />
-          <Route path='/movies' element={<Movies />} />
-          <Route path='/saved-movies' element={<SavedMovies />} />
-          <Route path='/profile' element={<Profile loggedIn={loggedIn} isLoggedIn={setLoggedIn} updateUser={setCurrentUser} />} />
+          <Route
+            path='/'
+            element={<Main loggedIn={loggedIn} />}
+          />
+          <Route
+            path="/signup"
+            element={<Register isLoggedIn={setLoggedIn} />}
+          />
+          <Route
+            path="/signin"
+            element={<Login isLoggedIn={setLoggedIn} />}
+          />
+          <Route
+            path='*'
+            element={<PageNotFound />}
+          />
+          <Route
+            path='/movies'
+            element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Movies />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/saved-movies'
+            element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <SavedMovies />
+            </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/profile'
+            element={
+              <ProtectedRoute>
+                <Profile
+                  loggedIn={loggedIn}
+                  isLoggedIn={setLoggedIn}
+                  updateUser={setCurrentUser}
+                />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </CurrentUserContext.Provider>
     </div>
