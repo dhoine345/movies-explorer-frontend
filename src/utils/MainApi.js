@@ -58,22 +58,22 @@ class Api {
       .then(res => this._getResponseData(res))
   }
 
-  addMovie({ country, director, duration, year, description, image, trailerLink, thumbnail, movieId, nameRU, nameEN }) {
+  addMovie(movie) {
     return fetch(`${this._baseUrl}/movies`, {
       method: 'POST',
       headers: this._header,
       body: JSON.stringify({
-        country,
-        director,
-        duration,
-        year,
-        description,
-        image,
-        trailerLink,
-        thumbnail,
-        movieId,
-        nameRU,
-        nameEN
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: movie.image,
+        trailerLink: movie.trailerLink,
+        thumbnail: movie.thumbnail,
+        movieId: movie.movieId,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN
       })
     })
       .then(res => this._getResponseData(res))

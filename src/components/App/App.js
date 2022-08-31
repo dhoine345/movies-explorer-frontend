@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -11,10 +11,27 @@ import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { getFromMoviesApi, getSavedMovies, checkToken } from '../../utils/utils';
+import { api } from '../../utils/MainApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] =useState({});
+  const history = useNavigate();
+  const location = useLocation().pathname;
+
+
+  useEffect(() => {
+    let token = localStorage.getItem('jwt');
+    if(token) {
+      api.getUserInfo(token)
+        .then(res => {
+          setLoggedIn(true);
+          setCurrentUser(res.data);
+          history(location);
+        })
+        .catch(err => console.log(err.message));
+    }
+  },[loggedIn]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -22,11 +39,6 @@ function App() {
       getSavedMovies(currentUser);
     }
   }, [loggedIn, currentUser]);
-
-
-  useEffect(() => {
-    checkToken(setLoggedIn, setCurrentUser);
-  },[loggedIn]);
 
   return (
     <div className="page">
@@ -67,7 +79,7 @@ function App() {
           <Route
             path='/profile'
             element={
-              <ProtectedRoute>
+              <ProtectedRoute loggedIn={loggedIn}>
                 <Profile
                   loggedIn={loggedIn}
                   isLoggedIn={setLoggedIn}

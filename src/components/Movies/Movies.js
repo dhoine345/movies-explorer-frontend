@@ -11,6 +11,8 @@ function Movies() {
   const [isLoading, setLoading] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isSucces, setSuccess] = useState(true);
+  const [isChecked, setChecekd] = useState(JSON.parse(localStorage.getItem('isChecked')) || false);
+  const [inputValue, setInputValue] = useState(JSON.parse(localStorage.getItem('inputValue')) || '');
 
   useEffect(() => {
     setAllMovies(JSON.parse(localStorage.getItem('allMoviesArray')));
@@ -40,6 +42,10 @@ function Movies() {
         onLoading={setLoading}
         allMovies={allMovies}
         setSuccess={setSuccess}
+        isChecked={isChecked}
+        setChecekd={setChecekd}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
       />
       <section className='movies'>
         <MoviesCardList

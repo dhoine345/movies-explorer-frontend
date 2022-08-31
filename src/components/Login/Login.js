@@ -16,12 +16,21 @@ function Login({ isLoggedIn }) {
           isLoggedIn(true);
           history('/movies');
           localStorage.setItem('jwt', res.token);
-          localStorage.setItem('savedMovies', JSON.stringify([]))
+          localStorage.setItem('savedMovies', JSON.stringify([]));
+        }
+      })
+      .catch((err) => {
+        if (err.includes('401')) {
+          setErrorMessage('Неверные имя пользователя или пароль')
+          setError(true);
+        } else if (err) {
+          setErrorMessage('Что-то пошло не так');
+          setError(true);
         }
       })
       .catch(() => {
-        setErrorMessage('Неверные имя пользователя или пароль')
-        setError(true)
+        setErrorMessage('Что-то пошло не так');
+        setError(true);
       })
   };
 

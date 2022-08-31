@@ -5,6 +5,7 @@
   grid-template-rows: repeat(auto-fit, max(271px));
   gap: 30px 24px;
   justify-content: space-between;
+  min-height: 154px;
 }
 
 .moviescardlist__button {

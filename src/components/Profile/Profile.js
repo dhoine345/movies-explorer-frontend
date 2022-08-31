@@ -38,7 +38,7 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
       setinputEmailValidity(true);
       setInputErrorEmail('');
     } else {
-      setInputErrorEmail(e.target.validationMessage);
+      setInputErrorEmail('Неверный формат E-mail');
     }
   };
 
@@ -89,7 +89,10 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
               <span className='profile__input-error'>{inputErrorEmail}</span>
               <input
                 className='profile__input'
-                id='email' required type='email'
+                id='email'
+                required
+                pattern='^[^ ]+@[^ ]+\.[a-z]{2,3}$'
+                type='email'
                 defaultValue={currentUser.email}
                 onChange={hadleInputEmailChange}
               />
@@ -105,6 +108,7 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
             <button
               className='profile__button profile__button_exit link-hover'
               onClick={logOut}
+              type='button'
             >
               Выйти из аккаунта
             </button>

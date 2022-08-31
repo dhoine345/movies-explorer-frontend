@@ -11,13 +11,15 @@ function SavedMovies() {
   const [serchedSavedMovies, setserchedSavedMovies] = useState([]);
   const [arrayOfSavedMovies, setArrayOfMovies] = useState([]);
   const [isSucces, setSuccess] = useState(true);
+  const [isChecked, setChecekd] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
     setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
   }, []);
 
   useEffect(() => {
-    setArrayOfMovies(serchedSavedMovies.length > 0 ? serchedSavedMovies : savedMovies)
+    setArrayOfMovies(serchedSavedMovies.length > 0 ? serchedSavedMovies : savedMovies);
   }, [serchedSavedMovies, savedMovies]);
 
   const updateArrayOfSavedMovies = (newArr) =>{
@@ -39,6 +41,10 @@ function SavedMovies() {
         savedMovies={savedMovies}
         setserchedSavedMovies={setserchedSavedMovies}
         setSuccess={setSuccess}
+        isChecked={isChecked}
+        setChecekd={setChecekd}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
       />
     <section className='movies'>
       <MoviesCardList

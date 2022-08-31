@@ -18,11 +18,11 @@ function MoviesCard({ moviescard,
 
   useEffect(() => {
     if (location === '/saved-movies') {
-      setStyleOfButton('moviescard__delete-icon')
+      setStyleOfButton('moviescard__delete-icon');
     } else if (!isSavedStatus) {
-      setStyleOfButton('moviescard__favorites')
+      setStyleOfButton('moviescard__favorites');
     } else if (isSavedStatus) {
-      setStyleOfButton('moviescard__favorites moviescard__favorites_active')
+      setStyleOfButton('moviescard__favorites moviescard__favorites_active');
     }
   }, [location, isSavedStatus]);
 
@@ -54,7 +54,7 @@ function MoviesCard({ moviescard,
       thumbnail: baseUrl + moviescard.image.formats.thumbnail.url
     })
       .then((res) => {
-        setSavedMovies([...savedMovies, res.data])
+        setSavedMovies([...savedMovies, res.data]);
         localStorage.setItem('savedMovies', JSON.stringify([...savedMovies, res.data]));
       })
       .then(() => setSavedStatus(true))
@@ -66,13 +66,13 @@ function MoviesCard({ moviescard,
     if (!arr) {
       return
     }
-    return arr.splice(arr.indexOf(arr.find((movie) => movie.movieId === item.data.movieId)), 1)
+    return arr.splice(arr.indexOf(arr.find((movie) => movie.movieId === item.data.movieId)), 1);
   }
 
   const removeMovie = (item) => {
     const savedArr = savedMovies;
     const searchedArr = serchedSavedMovies;
-    spliceArr(savedArr, item)
+    spliceArr(savedArr, item);
     spliceArr(searchedArr, item)
     .then(() => {
       setSavedMovies(savedArr);
@@ -83,7 +83,7 @@ function MoviesCard({ moviescard,
     .then(() => {
       setSavedStatus(false);
     })
-  }
+  };
 
   const removeFromSaved = () => {
     location === '/saved-movies' ?
@@ -111,14 +111,17 @@ function MoviesCard({ moviescard,
         <button
           className={`${styleOfButton} link-hover`}
           onClick={handleClick}
+          type='button'
         />
       </div>
-      <img
-        className='moviescard__image'
-        src={location === '/saved-movies' ? moviescard.image : baseUrl + moviescard.image.url}
-        alt={moviescard.nameRu}
-        onClick={test}
-      />
+      <a className='moviescard__link' href={moviescard.trailerLink} target="_blank" rel="noreferrer">
+        <img
+          className='moviescard__image'
+          src={location === '/saved-movies' ? moviescard.image : baseUrl + moviescard.image.url}
+          alt={moviescard.nameRu}
+          onClick={test}
+        />
+      </a>
     </article>
   )
 }
