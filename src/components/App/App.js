@@ -10,7 +10,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { getFromMoviesApi, getSavedMovies, checkToken } from '../../utils/utils';
+import { getFromMoviesApi, getSavedMovies } from '../../utils/utils';
 import { api } from '../../utils/MainApi';
 
 function App() {
@@ -18,7 +18,6 @@ function App() {
   const [currentUser, setCurrentUser] =useState({});
   const history = useNavigate();
   const location = useLocation().pathname;
-
 
   useEffect(() => {
     let token = localStorage.getItem('jwt');
@@ -34,11 +33,12 @@ function App() {
   },[loggedIn]);
 
   useEffect(() => {
-    if (loggedIn) {
-      getFromMoviesApi();
-      getSavedMovies(currentUser);
-    }
-  }, [loggedIn, currentUser]);
+    loggedIn && getFromMoviesApi();
+  }, [loggedIn]);
+
+  useEffect(() => {
+    loggedIn && getSavedMovies(currentUser, loggedIn);
+  }, [currentUser])
 
   return (
     <div className="page">
