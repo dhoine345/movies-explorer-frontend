@@ -75,15 +75,15 @@ function MoviesCardList({
            })
            : <p className='moviescardlist__not-found'>Ничего не найдено</p>
          }
-         <button
-           className={`moviescardlist__button link-hover ${!isAddButton && 'moviescardlist__button_disabled'}`}
-           onClick={handleAddButton}
-           type='button'
-         >
-           Ещё
-         </button>
        </section>
       }
+      <button
+        className={`moviescardlist__button link-hover ${!isAddButton && 'moviescardlist__button_disabled'}`}
+        onClick={handleAddButton}
+        type='button'
+      >
+        Ещё
+      </button>
     </>
   )
 }
