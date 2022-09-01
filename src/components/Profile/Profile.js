@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 import Header from '../Header/Header';
@@ -15,32 +15,37 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
   const [inputNameValidity, setinputNameValidity] = useState(false);
   const [inputEmailValidity, setinputEmailValidity] = useState(false);
   const [buttonActive, setButtonActive] = useState(false);
+  const nameRef = useRef();
+  const emailRef = useRef();
 
   useEffect(() => {
-    if (inputNameValidity && name !== currentUser.name) {
-      if (inputEmailValidity && email !== currentUser.email) {
-        setButtonActive(true)
-      }
+    if (inputNameValidity || inputEmailValidity) {
+      setButtonActive(true);
+    } else {
+      setButtonActive(false);
     }
-  }, [inputNameValidity, currentUser.name, currentUser.email, inputEmailValidity, name, email])
+  }, [inputNameValidity, inputEmailValidity])
 
   const hadleInputNameChange = (e) => {
     setName(e.target.value);
-    if (e.target.validity.valid) {
+    if (e.target.validity.valid && nameRef.current.value !== currentUser.name) {
       setinputNameValidity(true);
       setInputErrorName('');
     } else {
       setInputErrorName(e.target.validationMessage);
+      setinputNameValidity(false);
     }
   };
 
   const hadleInputEmailChange = (e) => {
     setEmail(e.target.value);
-    if (e.target.validity.valid) {
+    if (e.target.validity.valid && emailRef.current.value !== currentUser.email) {
       setinputEmailValidity(true);
       setInputErrorEmail('');
-    } else {
+    } else if (!e.target.validity.valid) {
       setInputErrorEmail('Неверный формат E-mail');
+    } else if (emailRef.current.value === currentUser.email) {
+      setinputEmailValidity(false);
     }
   };
 
@@ -80,11 +85,14 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
               <span className='profile__input-error'>{inputErrorName}</span>
               <input
                 className='profile__input'
-                id='name' required minLength='2'
+                id='name'
+                required
+                minLength='2'
                 maxLength='30'
                 type='text'
                 defaultValue={currentUser.name}
                 onChange={hadleInputNameChange}
+                ref={nameRef}
               />
             </label>
             <label className='profile__label' htmlFor='email'>
@@ -98,6 +106,7 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
                 type='email'
                 defaultValue={currentUser.email}
                 onChange={hadleInputEmailChange}
+                ref={emailRef}
               />
             </label>
           </fieldset>
