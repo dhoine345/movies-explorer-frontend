@@ -33,9 +33,10 @@ function SearchForm({
       location === '/movies' ? localStorage.setItem('serchedMovies', JSON.stringify(res))
       : setserchedSavedMovies(res)
       setSuccess(true);
-      localStorage.setItem('isChecked', JSON.stringify(isChecked ? isChecked : !isChecked));
+      isChecked ? setChecekd(false) : setChecekd(true)
       localStorage.setItem('inputValue', JSON.stringify(inputValue));
     })
+    .then(() => localStorage.setItem('isChecked', JSON.stringify(!isChecked)))
   };
 
   const handleSearchRequest = (e) => {
