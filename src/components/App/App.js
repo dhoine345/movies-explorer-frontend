@@ -49,11 +49,11 @@ function App() {
             element={<Main loggedIn={loggedIn} />}
           />
           <Route
-            path={`${!loggedIn ? "/signup" : history('/')}`}
+            path="/signup"
             element={<Register isLoggedIn={setLoggedIn} />}
           />
           <Route
-            path={`${!loggedIn ? "/signin" : history('/')}`}
+            path="/signin"
             element={<Login isLoggedIn={setLoggedIn} />}
           />
           <Route
