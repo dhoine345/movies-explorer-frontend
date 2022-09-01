@@ -10,9 +10,7 @@ function MoviesCardList({
   savedMovies,
   setSavedMovies,
   arrayOfSavedMovies,
-  setSerchedSavedMovies,
   serchedSavedMovies,
-  updateArrayOfMovies,
   isSucces
  }) {
   const [arrayToRender, setArrayToRender] = useState([]);
@@ -70,9 +68,7 @@ function MoviesCardList({
                  setSavedMovies={setSavedMovies}
                  savedMovies={savedMovies}
                  id={moviescard.movieId || moviescard.id}
-                 setSerchedSavedMovies={setSerchedSavedMovies}
                  serchedSavedMovies={location === '/movies' ? '' : serchedSavedMovies}
-                 updateArrayOfMovies={updateArrayOfMovies}
                  updateArray={updateArray}
                />
              )

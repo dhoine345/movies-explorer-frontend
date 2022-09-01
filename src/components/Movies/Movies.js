@@ -28,16 +28,9 @@ function Movies() {
     setSearchedMovies(JSON.parse(localStorage.getItem('serchedMovies')) || []);
   }, [isLoading]);
 
-  const test1 = () => {
-    console.log('из хранилища', allMovies)
-    console.log('найденные', searchedMovies)
-    console.log('сохраненные', savedMovies)
-  }
-
   return (
     <>
       <Header loggedIn={true} isWhiteBack={true}/>
-      <button style={{width: 60, height: 60}} onClick={test1}>Данные из хранилища</button>
       <SearchForm
         onLoading={setLoading}
         allMovies={allMovies}

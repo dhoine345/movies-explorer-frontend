@@ -22,20 +22,9 @@ function SavedMovies() {
     setArrayOfMovies(serchedSavedMovies.length > 0 ? serchedSavedMovies : savedMovies);
   }, [serchedSavedMovies, savedMovies]);
 
-  const updateArrayOfSavedMovies = (newArr) =>{
-    setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
-    setserchedSavedMovies(newArr);
-  };
-
-  const test1 = () => {
-    console.log('из хранилища', savedMovies)
-    console.log('найденные', serchedSavedMovies)
-  }
-
   return (
     <>
     <Header loggedIn={true} isWhiteBack={true}/>
-    <button style={{width: 60, height: 60}} onClick={test1}>Данные из хранилища</button>
     <SearchForm
         onLoading={setLoading}
         savedMovies={savedMovies}
@@ -52,9 +41,7 @@ function SavedMovies() {
         arrayOfSavedMovies={arrayOfSavedMovies}
         setSavedMovies={setSavedMovies}
         isLoading={isLoading}
-        setserchedSavedMovies={setserchedSavedMovies}
         serchedSavedMovies={serchedSavedMovies}
-        updateArrayOfMovies={updateArrayOfSavedMovies}
         isSucces={isSucces}
       />
     </section>

@@ -4,12 +4,12 @@ import { baseUrl } from '../../utils/constants';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCard({ moviescard,
+function MoviesCard({
+  moviescard,
   savedMovies,
   id,
   setSavedMovies,
   serchedSavedMovies,
-  updateArrayOfMovies,
   updateArray
 }) {
   const [isSavedStatus, setSavedStatus] = useState(false);
@@ -77,7 +77,6 @@ function MoviesCard({ moviescard,
     .then(() => {
       setSavedMovies(savedArr);
       localStorage.setItem('savedMovies', JSON.stringify(savedArr));
-      //updateArrayOfMovies(searchedArr);
       updateArray(searchedArr);
     })
     .then(() => {

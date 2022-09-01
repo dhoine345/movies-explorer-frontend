@@ -13,8 +13,9 @@ function Register({ isLoggedIn }) {
     api.register( email, password, name)
       .then(() => {
         api.login(email, password)
-          .then(() => {
+          .then((res) => {
             isLoggedIn(true);
+            localStorage.setItem('jwt', res.token);
             history('/movies');
           })
       })
