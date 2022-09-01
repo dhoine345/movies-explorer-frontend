@@ -1,5 +1,5 @@
 .moviescardlist {
-  padding: 0 calc(100% - 94.53%);
+  padding: 0 calc(100% - 94.53%) 30px;
   display: grid;
   grid-template-columns: repeat(3, minmax(270px, 363px));
   grid-template-rows: repeat(auto-fit, max(271px));
@@ -11,15 +11,13 @@
 .moviescardlist__button {
   width: 320px;
   height: 36px;
-  margin: 52px 0 80px 0;
+  margin: 52px auto 0;
   padding: 0;
   border: none;
   background-color: #F9F9F9;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.25;
-  justify-self: center;
-  grid-column: 2;
 }
 
 .moviescardlist__button_disabled {
@@ -43,8 +41,7 @@
   }
 
   .moviescardlist__button {
-    grid-column: span 2;
-    margin: 44px 0 100px 0;
+    margin: 52px auto 0;
   }
 }
 
@@ -59,8 +56,7 @@
 
   .moviescardlist__button {
     width: 240px;
-    grid-column: 1;
-    margin: 64px 0 100px 0;
+    margin: 52px auto 0;
   }
 }
 
