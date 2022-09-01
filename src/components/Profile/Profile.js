@@ -16,11 +16,13 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
   const [inputEmailValidity, setinputEmailValidity] = useState(false);
   const [buttonActive, setButtonActive] = useState(false);
 
-  const validity = inputEmailValidity && inputNameValidity;
-
   useEffect(() => {
-    validity ? setButtonActive(true) : setButtonActive(false);
-  }, [validity]);
+    if (inputNameValidity && name !== currentUser.name) {
+      if (inputEmailValidity && email !== currentUser.email) {
+        setButtonActive(true)
+      }
+    }
+  }, [inputNameValidity, currentUser.name, currentUser.email, inputEmailValidity, name, email])
 
   const hadleInputNameChange = (e) => {
     setName(e.target.value);
@@ -58,6 +60,7 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
     api.updateProfile(name, email)
       .then((res) => {
         updateUser(res.data);
+        setButtonActive(false);
       })
       .catch(err => console.log(err.name))
   };
@@ -101,7 +104,7 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
           <fieldset className='profile__buttons'>
             <button
               disabled={!buttonActive}
-              className='profile__button link-hover'
+              className={`profile__button ${buttonActive && 'link-hover'}`}
             >
               Редактировать
             </button>
