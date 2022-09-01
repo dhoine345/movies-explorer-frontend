@@ -12,7 +12,7 @@ function SearchForm({
   isChecked,
   setChecekd,
   inputValue,
-  setInputValue
+  setInputValue,
 }) {
   const location = useLocation().pathname;
 
@@ -25,7 +25,18 @@ function SearchForm({
 
   const handleInputChange = (e) => setInputValue(e.target.value);
 
-  const handleCheckBoxChange = () => !isChecked ? setChecekd(true) : setChecekd(false);
+  const handleCheckBoxChange = () => {
+    !isChecked ? setChecekd(true) : setChecekd(false);
+    showPreloader();
+    fiterArray(allMovies || savedMovies, inputValue, !isChecked)
+    .then((res) => {
+      location === '/movies' ? localStorage.setItem('serchedMovies', JSON.stringify(res))
+      : setserchedSavedMovies(res)
+      setSuccess(true);
+      localStorage.setItem('isChecked', JSON.stringify(isChecked ? isChecked : !isChecked));
+      localStorage.setItem('inputValue', JSON.stringify(inputValue));
+    })
+  };
 
   const handleSearchRequest = (e) => {
     e.preventDefault();
