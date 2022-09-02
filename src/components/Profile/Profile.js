@@ -4,7 +4,7 @@ import './Profile.css';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { api } from "../../utils/MainApi";
-import { profileSuccessMessage, somthingWrongMessage, emailExistError } from '../../utils/constants'
+import { messages } from '../../utils/constants'
 
 function Profile({ loggedIn, isLoggedIn, updateUser }) {
   const history = useNavigate();
@@ -71,12 +71,12 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
         setinputNameValidity(false);
         setinputEmailValidity(false);
         setSubmitResult(true);
-        setResutMessage(profileSuccessMessage)
+        setResutMessage(messages.profileSuccessSubmit)
       })
       .catch(err => {
         setButtonActive(false);
         setSubmitResult(true);
-        err.includes(409) ? setResutMessage(emailExistError) : setResutMessage(somthingWrongMessage)
+        err.includes(409) ? setResutMessage(messages.emailExistError) : setResutMessage(messages.somthingWrong)
       })
   };
 

@@ -1,5 +1,6 @@
 import { getAllMovies } from './MoviesApi';
 import { api } from './MainApi';
+import { lengthOfShortMovie } from './constants';
 
 export const getFromMoviesApi = () => {
   getAllMovies()
@@ -21,7 +22,7 @@ export const fiterArray = (array, itemToSearch, checBoxStatus) => {
     const result = array.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(itemToSearch);
     }).filter((item) => {
-      return (checBoxStatus ? (item.duration <= 40) : item);
+      return (checBoxStatus ? (item.duration <= lengthOfShortMovie) : item);
     })
     if (result.length > 0) {
       resolve(result);

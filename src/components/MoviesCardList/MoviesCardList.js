@@ -3,6 +3,8 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
+import { windowSize } from '../../utils/constants';
+import { messages, arrayLength, numberToAdd } from '../../utils/constants'
 
 function MoviesCardList({
   searchedMovies,
@@ -17,7 +19,7 @@ function MoviesCardList({
   const [arrayToRender, setArrayToRender] = useState([]);
   const [lengthOfArray, setlengthOfArray] = useState();
   const [countToAdd, setCountToAdd] = useState();
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const windowWidth = window.innerWidth;
   const [isAddButton, setIsAddButton] = useState();
   const location = useLocation().pathname;
 
@@ -36,19 +38,25 @@ function MoviesCardList({
   ), [windowWidth]);
 
   useEffect(() => {
-    window.addEventListener('resize', () => setWindowWidth(window.innerWidth))
+    const setTimeOut = (e) => setTimeout(setNumberOfMovies(e), 3000);
+
+    window.addEventListener('resize', (e) => setTimeOut(e.currentTarget.innerWidth));
+
+    return window.removeEventListener('resize', (e) =>
+      setTimeOut(e.currentTarget.innerWidth)
+    );
   },);
 
   const setNumberOfMovies = (width) => {
-    if (width > 950) {
-      setlengthOfArray(12)
-      setCountToAdd(3)
-    } else if (width > 500 && width < 950) {
-        setlengthOfArray(8)
-        setCountToAdd(2)
-      } else if (width < 500) {
-        setlengthOfArray(5)
-        setCountToAdd(1)
+    if (width > windowSize.large) {
+      setlengthOfArray(arrayLength.large)
+      setCountToAdd(numberToAdd.large)
+    } else if (width > windowSize.small && width < windowSize.large) {
+        setlengthOfArray(arrayLength.medium)
+        setCountToAdd(numberToAdd.medium)
+      } else if (width < windowSize.small) {
+        setlengthOfArray(arrayLength.small)
+        setCountToAdd(numberToAdd.small)
         }
   };
 
@@ -75,8 +83,8 @@ function MoviesCardList({
                   />
                 )
               })
-            : <p className='moviescardlist__not-found'>Ничего не найдено</p>)
-          : <p className='moviescardlist__not-found'>Нужно ввести ключевое слово</p>
+            : <p className='moviescardlist__not-found'>{messages.notFound}</p>)
+          : <p className='moviescardlist__not-found'>{messages.missingWord}</p>
          }
        </section>
       }
