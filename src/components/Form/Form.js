@@ -23,7 +23,6 @@ function Form({
   const [inputNameValidity, setinputNameValidity] = useState(false);
   const [inputEmailValidity, setinputEmailValidity] = useState(false);
   const [inputPasswordValidity, setinputPasswordValidity] = useState(false);
-  //const [buttonActive, setButtonActive] = useState(false);
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
