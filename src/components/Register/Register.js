@@ -8,8 +8,10 @@ function Register({ isLoggedIn }) {
   const history = useNavigate();
   const [isError, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [buttonActive, setButtonActive] = useState(false);
 
   const handleRegister = (email, password, name) => {
+    setButtonActive(false);
     api.register( email, password, name)
       .then(() => {
         api.login(email, password)
@@ -27,7 +29,8 @@ function Register({ isLoggedIn }) {
         }
         setError(true)
       }
- )
+      )
+      .finally(() => setButtonActive(true))
   };
 
   return (
@@ -41,6 +44,8 @@ function Register({ isLoggedIn }) {
       onRegister={handleRegister}
       isError={isError}
       errorMessage={errorMessage}
+      buttonActive={buttonActive}
+      setButtonActive={setButtonActive}
     />
   )
 }

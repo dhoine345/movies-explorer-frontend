@@ -8,8 +8,10 @@ function Login({ isLoggedIn }) {
   const history = useNavigate();
   const [isError, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [buttonActive, setButtonActive] = useState(false);
 
   const handleLogin = (email, password) => {
+    setButtonActive(false);
     api.login(email, password)
       .then((res) => {
         if (res.token) {
@@ -32,6 +34,7 @@ function Login({ isLoggedIn }) {
         setErrorMessage('Что-то пошло не так');
         setError(true);
       })
+      .finally(() => setButtonActive(true))
   };
 
   return (
@@ -45,6 +48,8 @@ function Login({ isLoggedIn }) {
       onLogin={handleLogin}
       isError={isError}
       errorMessage={errorMessage}
+      buttonActive={buttonActive}
+      setButtonActive={setButtonActive}
     />
   )
 }

@@ -3,14 +3,27 @@ import { Link, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import { useEffect, useState } from 'react';
 
-function Form({ typeOfForm, text, path, linktext, buttontext, greeting, onRegister, onLogin, isError, errorMessage }) {
+function Form({
+  typeOfForm,
+  text,
+  path,
+  linktext,
+  buttontext,
+  greeting,
+  onRegister,
+  onLogin,
+  isError,
+  errorMessage,
+  buttonActive,
+  setButtonActive
+}) {
   const [inputErrorName, setInputErrorName] = useState('');
   const [inputErrorEmail, setInputErrorEmail] = useState('');
   const [inputErrorPassword, setInputErrorPassword] = useState('');
   const [inputNameValidity, setinputNameValidity] = useState(false);
   const [inputEmailValidity, setinputEmailValidity] = useState(false);
   const [inputPasswordValidity, setinputPasswordValidity] = useState(false);
-  const [buttonActive, setButtonActive] = useState(false);
+  //const [buttonActive, setButtonActive] = useState(false);
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
