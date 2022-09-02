@@ -85,6 +85,10 @@
   margin-top: 17px;
 }
 
+.profile__submi-result {
+  color: #EE3465;
+}
+
 @media screen and (max-width:768px) {
   .profile__label:last-of-type {
     margin-bottom: 194px;
