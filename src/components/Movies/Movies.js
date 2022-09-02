@@ -41,6 +41,7 @@ function Movies() {
         inputValue={inputValue}
         setInputValue={setInputValue}
         setSearchFormValid={setSearchFormValid}
+        searchedMovies={searchedMovies}
       />
       <section className='movies'>
         <MoviesCardList

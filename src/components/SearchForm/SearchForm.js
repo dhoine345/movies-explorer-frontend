@@ -13,7 +13,8 @@ function SearchForm({
   setChecekd,
   inputValue,
   setInputValue,
-  setSearchFormValid
+  setSearchFormValid,
+  searchedMovies
 }) {
   const location = useLocation().pathname;
 
@@ -29,7 +30,8 @@ function SearchForm({
   const handleCheckBoxChange = () => {
     !isChecked ? setChecekd(true) : setChecekd(false);
     showPreloader();
-    fiterArray(allMovies || savedMovies, inputValue, !isChecked)
+    changeSearchFormValid();
+    fiterArray(searchedMovies || savedMovies, inputValue, !isChecked)
     .then((res) => {
       location === '/movies' ? localStorage.setItem('serchedMovies', JSON.stringify(res))
       : setserchedSavedMovies(res)
