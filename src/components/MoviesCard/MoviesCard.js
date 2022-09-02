@@ -91,14 +91,7 @@ function MoviesCard({
     : Promise.resolve(savedMovies.find((movie) => movie.movieId === moviescard.id)._id)
     .then((id) => api.removeMovie(id))
     .then((deletedMovie) => removeMovie(deletedMovie))
-  }
-
-  const test = () => {
-    console.log('SavedStatus', isSavedStatus);
-    console.log('savedMovies', savedMovies);
-    console.log('moviescard', moviescard);
-    console.log('serchedSavedMovies', serchedSavedMovies);
-  }
+  };
 
   return (
     <article className='moviescard' >
@@ -118,7 +111,6 @@ function MoviesCard({
           className='moviescard__image'
           src={location === '/saved-movies' ? moviescard.image : baseUrl + moviescard.image.url}
           alt={moviescard.nameRu}
-          onClick={test}
         />
       </a>
     </article>
