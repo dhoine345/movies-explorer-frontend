@@ -4,17 +4,18 @@ import './Profile.css';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { api } from "../../utils/MainApi";
+import { profileSuccessMessage, somthingWrongMessage, emailExistError } from '../../utils/constants'
 
 function Profile({ loggedIn, isLoggedIn, updateUser }) {
   const history = useNavigate();
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [inputErrorName, setInputErrorName] = useState('');
   const [inputErrorEmail, setInputErrorEmail] = useState('');
   const [inputNameValidity, setinputNameValidity] = useState(false);
   const [inputEmailValidity, setinputEmailValidity] = useState(false);
   const [buttonActive, setButtonActive] = useState(false);
+  const [isSubmitResult, setSubmitResult] = useState(false);
+  const [resultMessage, setResutMessage] = useState('')
   const nameRef = useRef();
   const emailRef = useRef();
 
@@ -24,10 +25,10 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
     } else {
       setButtonActive(false);
     }
-  }, [inputNameValidity, inputEmailValidity])
+  }, [inputNameValidity, inputEmailValidity]);
 
   const hadleInputNameChange = (e) => {
-    setName(e.target.value);
+    setSubmitResult(false);
     if (e.target.validity.valid && nameRef.current.value !== currentUser.name) {
       setinputNameValidity(true);
       setInputErrorName('');
@@ -37,20 +38,8 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
     }
   };
 
-  /*const hadleInputEmailChange = (e) => {
-    setEmail(e.target.value);
-    if (e.target.validity.valid && emailRef.current.value !== currentUser.email) {
-      setinputEmailValidity(true);
-      setInputErrorEmail('');
-    } else if (!e.target.validity.valid) {
-      setInputErrorEmail('Неверный формат E-mail');
-    } else if (emailRef.current.value === currentUser.email) {
-      setinputEmailValidity(false);
-    }
-  };*/
-
   const hadleInputEmailChange = (e) => {
-    setEmail(e.target.value);
+    setSubmitResult(false);
     if (e.target.validity.valid && emailRef.current.value !== currentUser.email) {
       setinputEmailValidity(true);
       setInputErrorEmail('');
@@ -76,12 +65,19 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    api.updateProfile(name, email)
+    api.updateProfile(nameRef.current.value, emailRef.current.value)
       .then((res) => {
         updateUser(res.data);
-        setButtonActive(false);
+        setinputNameValidity(false);
+        setinputEmailValidity(false);
+        setSubmitResult(true);
+        setResutMessage(profileSuccessMessage)
       })
-      .catch(err => console.log(err.name))
+      .catch(err => {
+        setButtonActive(false);
+        setSubmitResult(true);
+        err.includes(409) ? setResutMessage(emailExistError) : setResutMessage(somthingWrongMessage)
+      })
   };
 
   return (
@@ -125,6 +121,7 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
             </label>
           </fieldset>
           <fieldset className='profile__buttons'>
+            {isSubmitResult && <p className='profile__submi-result'>{resultMessage}</p>}
             <button
               disabled={!buttonActive}
               className={`profile__button ${buttonActive && 'link-hover'}`}
