@@ -29,6 +29,8 @@ function App() {
           history(location);
         })
         .catch(err => console.log(err.message));
+    } else {
+      history('/')
     }
   },[loggedIn]);
 
