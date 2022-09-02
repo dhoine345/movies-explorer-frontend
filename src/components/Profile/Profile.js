@@ -60,9 +60,6 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
     } else if (e.target.validity.valid && emailRef.current.value === currentUser.email) {
       setInputErrorEmail('');
       setinputEmailValidity(false);
-    } else if (e.target.validity.valid && emailRef.current.value === currentUser.email) {
-      setInputErrorEmail('');
-      setinputEmailValidity(false);
     }
   };
 
