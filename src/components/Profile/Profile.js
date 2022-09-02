@@ -37,7 +37,7 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
     }
   };
 
-  const hadleInputEmailChange = (e) => {
+  /*const hadleInputEmailChange = (e) => {
     setEmail(e.target.value);
     if (e.target.validity.valid && emailRef.current.value !== currentUser.email) {
       setinputEmailValidity(true);
@@ -45,6 +45,23 @@ function Profile({ loggedIn, isLoggedIn, updateUser }) {
     } else if (!e.target.validity.valid) {
       setInputErrorEmail('Неверный формат E-mail');
     } else if (emailRef.current.value === currentUser.email) {
+      setinputEmailValidity(false);
+    }
+  };*/
+
+  const hadleInputEmailChange = (e) => {
+    setEmail(e.target.value);
+    if (e.target.validity.valid && emailRef.current.value !== currentUser.email) {
+      setinputEmailValidity(true);
+      setInputErrorEmail('');
+    } else if (!e.target.validity.valid && emailRef.current.value !== currentUser.email) {
+      setInputErrorEmail('Неверный формат E-mail');
+      setinputEmailValidity(false);
+    } else if (e.target.validity.valid && emailRef.current.value === currentUser.email) {
+      setInputErrorEmail('');
+      setinputEmailValidity(false);
+    } else if (e.target.validity.valid && emailRef.current.value === currentUser.email) {
+      setInputErrorEmail('');
       setinputEmailValidity(false);
     }
   };
