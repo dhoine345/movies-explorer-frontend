@@ -13,6 +13,7 @@ function SavedMovies() {
   const [isSucces, setSuccess] = useState(true);
   const [isChecked, setChecekd] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [isSearchValid, setSearchFormValid] = useState(true);
 
   useEffect(() => {
     setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
@@ -34,6 +35,7 @@ function SavedMovies() {
         setChecekd={setChecekd}
         inputValue={inputValue}
         setInputValue={setInputValue}
+        setSearchFormValid={setSearchFormValid}
       />
     <section className='movies'>
       <MoviesCardList
@@ -43,6 +45,7 @@ function SavedMovies() {
         isLoading={isLoading}
         serchedSavedMovies={serchedSavedMovies}
         isSucces={isSucces}
+        isSearchValid={isSearchValid}
       />
     </section>
     <Footer />

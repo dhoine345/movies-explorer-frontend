@@ -13,6 +13,7 @@ function SearchForm({
   setChecekd,
   inputValue,
   setInputValue,
+  setSearchFormValid
 }) {
   const location = useLocation().pathname;
 
@@ -39,9 +40,14 @@ function SearchForm({
     .then(() => localStorage.setItem('isChecked', JSON.stringify(!isChecked)))
   };
 
+  const changeSearchFormValid = () => {
+    inputValue !== '' ? setSearchFormValid(true) : setSearchFormValid(false);
+  }
+
   const handleSearchRequest = (e) => {
     e.preventDefault();
     showPreloader();
+    changeSearchFormValid();
     fiterArray(allMovies || savedMovies, inputValue, isChecked)
       .then(res => {
         location === '/movies' ? localStorage.setItem('serchedMovies', JSON.stringify(res))
@@ -63,10 +69,18 @@ function SearchForm({
       <form className='searchform' onSubmit={handleSearchRequest}>
         <div className='searchform__element'>
           <div className='searchform__logo' />
-          <input className='searchform__input'  required placeholder='Фильм' value={inputValue} onChange={handleInputChange}/>
+          <input
+            className='searchform__input'
+            placeholder='Фильм'
+            value={inputValue}
+            onChange={handleInputChange}
+          />
           <button className='searchform__button link-hover' type='submit'/>
         </div>
-          <FilterCheckbox checked={isChecked} onChangeCheckBox={handleCheckBoxChange} />
+          <FilterCheckbox
+            checked={isChecked}
+            onChangeCheckBox={handleCheckBoxChange}
+          />
       </form>
     </div>
   )

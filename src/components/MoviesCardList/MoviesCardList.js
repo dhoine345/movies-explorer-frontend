@@ -11,7 +11,8 @@ function MoviesCardList({
   setSavedMovies,
   arrayOfSavedMovies,
   serchedSavedMovies,
-  isSucces
+  isSucces,
+  isSearchValid
  }) {
   const [arrayToRender, setArrayToRender] = useState([]);
   const [lengthOfArray, setlengthOfArray] = useState();
@@ -59,31 +60,33 @@ function MoviesCardList({
         isLoading ? <Preloader />
         :
         <section className='moviescardlist'>
-         { isSucces ?
-           arrayToRender.map((moviescard) => {
-             return (
-               <MoviesCard
-                 moviescard={moviescard}
-                 key={moviescard.movieId || moviescard.id}
-                 setSavedMovies={setSavedMovies}
-                 savedMovies={savedMovies}
-                 id={moviescard.movieId || moviescard.id}
-                 serchedSavedMovies={location === '/movies' ? '' : serchedSavedMovies}
-                 updateArray={updateArray}
-               />
-             )
-           })
-           : <p className='moviescardlist__not-found'>Ничего не найдено</p>
+         {isSearchValid ?
+            (isSucces ?
+              arrayToRender.map((moviescard) => {
+                return (
+                  <MoviesCard
+                    moviescard={moviescard}
+                    key={moviescard.movieId || moviescard.id}
+                    setSavedMovies={setSavedMovies}
+                    savedMovies={savedMovies}
+                    id={moviescard.movieId || moviescard.id}
+                    serchedSavedMovies={location === '/movies' ? '' : serchedSavedMovies}
+                    updateArray={updateArray}
+                  />
+                )
+              })
+            : <p className='moviescardlist__not-found'>Ничего не найдено</p>)
+          : <p className='moviescardlist__not-found'>Нужно ввести ключевое слово</p>
          }
        </section>
       }
-      <button
+      {isSearchValid && <button
         className={`moviescardlist__button link-hover ${!isAddButton && 'moviescardlist__button_disabled'}`}
         onClick={handleAddButton}
         type='button'
       >
         Ещё
-      </button>
+      </button>}
     </>
   )
 }
