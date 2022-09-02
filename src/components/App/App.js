@@ -52,11 +52,11 @@ function App() {
           />
           <Route
             path="/signup"
-            element={<Register isLoggedIn={setLoggedIn} />}
+            element={loggedIn ? <Main loggedIn={loggedIn} /> : <Register isLoggedIn={setLoggedIn} />}
           />
           <Route
             path="/signin"
-            element={<Login isLoggedIn={setLoggedIn} />}
+            element={loggedIn ? <Main loggedIn={loggedIn} /> : <Login isLoggedIn={setLoggedIn} />}
           />
           <Route
             path='*'
