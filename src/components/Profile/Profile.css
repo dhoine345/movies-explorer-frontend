@@ -35,11 +35,6 @@
   text-align: end;
 }
 
-
-.profile__input::placeholder {
-  color: black;
-}
-
 .profile__label {
   display: flex;
   justify-content: space-between;
@@ -57,6 +52,15 @@
   font-weight: 500;
   font-size: .687em;
   line-height: 1.18;
+}
+
+.profile__input-error {
+  color: #EE3465;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 1.2;
+  min-height: 12px;
+  max-width: 54%;
 }
 
 .profile__buttons {
@@ -79,6 +83,10 @@
 .profile__button_exit {
   color: #EE3465;
   margin-top: 17px;
+}
+
+.profile__submi-result {
+  color: #EE3465;
 }
 
 @media screen and (max-width:768px) {

@@ -14,13 +14,15 @@
   margin: 0 0 184px;
 }
 
-.page-not-found__link {
+.page-not-found__button {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   color: #FF6838;
   text-decoration: none;
   padding: 0 calc(100% - 52%);
+  background-color: white;
+  border: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -32,7 +34,7 @@
     margin: 0 0 182px;
   }
 
-  .page-not-found__link {
+  .page-not-found__button {
     padding: 0 calc(100% - 53%) 222px;
   }
 }
@@ -50,7 +52,7 @@
     line-height: 15px;
   }
 
-  .page-not-found__link {
+  .page-not-found__button {
     padding: 0 calc(100% - 56%) 30px;
     font-size: 12px;
     line-height: 15px;

@@ -1,6 +1,6 @@
 import './App.css';
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -9,40 +9,89 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
-import Preloader from '../Preloader/Preloader'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { getFromMoviesApi, getSavedMovies } from '../../utils/utils';
+import { api } from '../../utils/MainApi';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] =useState({});
+  const history = useNavigate();
+  const location = useLocation().pathname;
 
-  /*useEffect(() => {
-    checkToken();
-  },[]);
-
-  const checkToken = () => {
+  useEffect(() => {
     let token = localStorage.getItem('jwt');
-    if(localStorage.getItem('jwt')) {
-      getContent(token)
+    if(token) {
+      api.getUserInfo(token)
         .then(res => {
-          setEmail(res.data.email);
           setLoggedIn(true);
-          history.push('/');
+          setCurrentUser(res.data);
+          history(location);
         })
         .catch(err => console.log(err.message));
+    } else {
+      history('/')
     }
-  }*/
+  },[loggedIn]);
+
+  useEffect(() => {
+    loggedIn && getFromMoviesApi();
+  }, [loggedIn]);
+
+  useEffect(() => {
+    loggedIn && getSavedMovies(currentUser, loggedIn);
+  }, [currentUser])
 
   return (
     <div className="page">
-      <Routes>
-        <Route path='/' element={<Main loggedIn={loggedIn} />} />
-        <Route path="/signup" element={<Register />} />
-        <Route path="/signin" element={<Login />} />
-        <Route path='*' element={<PageNotFound />} />
-        <Route path='/movies' element={<Movies />} />
-        <Route path='/saved-movies' element={<SavedMovies />} />
-        <Route path='/profile' element={<Profile loggedIn={loggedIn} />} />
-        <Route path='/preloader' element={<Preloader />} />
-      </Routes>
+      <CurrentUserContext.Provider value={currentUser}>
+        <Routes>
+          <Route
+            path='/'
+            element={<Main loggedIn={loggedIn} />}
+          />
+          <Route
+            path="/signup"
+            element={loggedIn ? <Main loggedIn={loggedIn} /> : <Register isLoggedIn={setLoggedIn} />}
+          />
+          <Route
+            path="/signin"
+            element={loggedIn ? <Main loggedIn={loggedIn} /> : <Login isLoggedIn={setLoggedIn} />}
+          />
+          <Route
+            path='*'
+            element={<PageNotFound />}
+          />
+          <Route
+            path='/movies'
+            element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Movies />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/saved-movies'
+            element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <SavedMovies />
+            </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/profile'
+            element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Profile
+                  loggedIn={loggedIn}
+                  isLoggedIn={setLoggedIn}
+                  updateUser={setCurrentUser}
+                />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </CurrentUserContext.Provider>
     </div>
   );
 }

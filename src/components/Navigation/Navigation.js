@@ -13,14 +13,29 @@ function Navigation({ loggedIn }) {
     loggedIn &&
       <>
         <ul className='navigation__links'>
-          <NavLink to='/movies' className={`navigation__link link-hover ${location === '/movies' && 'navigation__link_active'}`}>Фильмы</NavLink>
-          <NavLink to='/saved-movies' className={`navigation__link link-hover ${location === '/saved-movies' && 'navigation__link_active'}`}>Сохраненные фильмы</NavLink>
+          <NavLink
+            to='/movies'
+            className={`navigation__link link-hover ${location === '/movies' && 'navigation__link_active'} ${location === '/' && 'navigation__link_white'}`}
+          >
+            Фильмы
+          </NavLink>
+          <NavLink
+            to='/saved-movies'
+            className={`navigation__link link-hover ${location === '/saved-movies' && 'navigation__link_active'} ${location === '/' && 'navigation__link_white'}`}
+          >
+            Сохраненные фильмы
+          </NavLink>
         </ul>
-        <Link to='/profile' className='navigation__account-container link-hover'>
+        <Link to='/profile' className={`navigation__account-container link-hover ${location === '/' && 'navigation__link_white'}`}>
           Аккаунт
           <div className='navigation__account-back'><div className='navigation__account-svg' /></div>
         </Link>
-        {!isNavigationPopupOpen && <button type='button' className='navigation__hamburger-button' onClick={openNavigationPopup}/>}
+        {!isNavigationPopupOpen &&
+          <button
+            type='button'
+            className={`navigation__hamburger-button ${location === '/' && 'navigation__hamburger-button_blue-back'}`}
+            onClick={openNavigationPopup}
+          />}
         <NavigationPopup isOpen={isNavigationPopupOpen} setNavigationPopupOpen={setNavigationPopupOpen}/>
       </>
   )
