@@ -59,6 +59,12 @@
   color: black;
 }
 
+@media screen and (min-width:1280px) {
+  .header {
+    padding: 0 calc(100% - 88.53%);
+  }
+}
+
 @media screen and (max-width:768px) {
   .header {
     padding: 0 30px;

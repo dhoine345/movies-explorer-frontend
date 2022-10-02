@@ -51,6 +51,12 @@
   margin-right: 0;
 }
 
+@media screen and (min-width:1280px) {
+  .techs {
+    padding: 0 calc(100% - 88.53%) 100px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .techs {
     padding: 0 calc(100% - 93.48%) 90px;

@@ -45,6 +45,12 @@
   line-height: 1.23;
 }
 
+@media screen and (min-width:1280px) {
+  .footer {
+    padding: 79px calc(100% - 88.53%) 20px;
+  }
+}
+
 @media screen and (max-width:768px) {
   .footer {
     background-color: #FFFFFF;

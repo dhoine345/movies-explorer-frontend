@@ -66,6 +66,12 @@
   margin-right: 20px;
 }
 
+@media screen and (min-width:1280px) {
+  .about-me {
+    padding: 0 calc(100% - 88.53%) 101px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .about-me {
     padding: 0 calc(100% - 93.48%) 90px;

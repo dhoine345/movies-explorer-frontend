@@ -37,7 +37,7 @@
   margin: 110px 0 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 228px auto;
+  grid-template-columns: 1fr 4fr;
   grid-template-rows: 36px 36px;
 }
 
@@ -59,6 +59,12 @@
 
 .project__table-cell_bottom {
   color: #A0A0A0;
+}
+
+@media screen and (min-width:1280px) {
+  .project {
+    padding: 0 calc(100% - 88.53%) 104px;
+  }
 }
 
 @media screen and (max-width:1100px) {

@@ -25,6 +25,12 @@
   margin: 0;
 }
 
+@media screen and (min-width:1280px) {
+  .promo {
+    padding: 51px calc(100% - 88.53%) 60px;
+  }
+}
+
 @media screen and (max-width:930px) {
   .promo {
     padding: 300px calc(100% - 94.53%) 70px;
